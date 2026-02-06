@@ -78,53 +78,53 @@
             font-weight: bold;
         }
 
-        /* Game Container - RESPONSIVE */
+        /* Game Container */
         #gameContainer {
             display: none !important;
             width: 100vw;
             height: 100vh;
-            padding: clamp(4px, 0.5vw, 8px);
-            grid-template-rows: minmax(120px, 14vh) 1fr minmax(220px, 26vh);
-            gap: clamp(4px, 0.5vw, 8px);
+            padding: 6px;
+            grid-template-rows: 110px 1fr 280px;
+            gap: 6px;
         }
 
         #gameContainer.active {
             display: grid !important;
         }
 
-        /* Top Section - RESPONSIVE */
+        /* Top Section - GEFIXTE LAYOUT */
         #topSection {
             display: grid;
-            grid-template-columns: minmax(180px, 18vw) minmax(90px, 9vw) 1fr minmax(180px, 18vw);
-            gap: clamp(4px, 0.5vw, 8px);
+            grid-template-columns: 200px 100px 1fr 200px;
+            gap: 6px;
         }
 
         /* Safari Route */
         #safariRouteBox {
             background: rgba(245, 222, 179, 0.95);
-            border: clamp(2px, 0.3vw, 4px) solid #8B4513;
-            border-radius: clamp(8px, 1vw, 12px);
-            padding: clamp(4px, 0.6vw, 8px);
+            border: 3px solid #8B4513;
+            border-radius: 10px;
+            padding: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         #safariRouteBox h3 {
             text-align: center;
             color: #2E5C8A;
-            font-size: clamp(9px, 1vw, 12px);
-            margin-bottom: clamp(2px, 0.4vw, 5px);
+            font-size: 10px;
+            margin-bottom: 3px;
             font-weight: bold;
         }
 
         .route-player {
             display: flex;
             align-items: center;
-            gap: clamp(2px, 0.3vw, 3px);
-            padding: clamp(2px, 0.3vw, 4px) clamp(3px, 0.4vw, 5px);
+            gap: 2px;
+            padding: 2px 3px;
             background: rgba(255, 255, 255, 0.85);
-            border-radius: clamp(4px, 0.5vw, 6px);
+            border-radius: 5px;
             border: 2px solid #654321;
-            margin-bottom: clamp(2px, 0.3vw, 4px);
+            margin-bottom: 3px;
         }
 
         .route-player.active {
@@ -134,9 +134,9 @@
         }
 
         .route-label {
-            min-width: clamp(30px, 3vw, 40px);
+            min-width: 35px;
             font-weight: bold;
-            font-size: clamp(8px, 0.9vw, 10px);
+            font-size: 8px;
             color: #654321;
             white-space: nowrap;
             overflow: hidden;
@@ -145,14 +145,14 @@
 
         .safari-route {
             display: flex;
-            gap: clamp(1px, 0.2vw, 2px);
+            gap: 1px;
             flex: 1;
             flex-wrap: wrap;
         }
 
         .route-step {
-            width: clamp(16px, 1.8vw, 20px);
-            height: clamp(16px, 1.8vw, 20px);
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: #D3D3D3;
             border: 2px solid #999;
@@ -160,7 +160,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: clamp(7px, 0.8vw, 9px);
+            font-size: 7px;
             color: #666;
             transition: all 0.3s;
         }
@@ -185,19 +185,19 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Deck & Discard - GEFIXTE LAYOUT */
+        /* Deck & Discard - KLEINER */
         #deckDiscardBox {
             display: flex;
             flex-direction: column;
-            gap: clamp(3px, 0.4vw, 5px);
+            gap: 4px;
         }
 
         .card-pile {
             flex: 1;
             background: rgba(245, 222, 179, 0.95);
-            border: clamp(2px, 0.3vw, 3px) solid #8B4513;
-            border-radius: clamp(6px, 0.8vw, 10px);
-            padding: clamp(3px, 0.4vw, 5px);
+            border: 2px solid #8B4513;
+            border-radius: 8px;
+            padding: 4px;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0,0,0,0.4);
             cursor: pointer;
@@ -210,39 +210,39 @@
         }
 
         .card-pile h4 {
-            font-size: clamp(8px, 0.9vw, 10px);
+            font-size: 8px;
             color: #654321;
-            margin-bottom: clamp(1px, 0.2vw, 2px);
+            margin-bottom: 2px;
             font-weight: bold;
         }
 
         .pile-visual {
-            width: clamp(35px, 4vw, 50px);
-            height: clamp(49px, 5.6vw, 70px);
+            width: 40px;
+            height: 56px;
             margin: 0 auto;
             border: 2px solid #333;
-            border-radius: 5px;
+            border-radius: 4px;
             background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(14px, 1.6vw, 20px);
+            font-size: 16px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .pile-count {
             position: absolute;
-            top: clamp(2px, 0.3vw, 4px);
-            right: clamp(2px, 0.3vw, 4px);
+            top: 3px;
+            right: 3px;
             background: #FFD700;
             color: #654321;
-            width: clamp(16px, 1.8vw, 20px);
-            height: clamp(16px, 1.8vw, 20px);
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(9px, 1vw, 11px);
+            font-size: 9px;
             font-weight: bold;
             border: 2px solid #8B4513;
         }
@@ -251,42 +251,54 @@
         #bigFiveBox {
             background: url('/images/boards/Big-Five-indicator-strip.jpg') center/contain no-repeat;
             background-size: 100% 100%;
-            border-radius: clamp(8px, 1vw, 12px);
+            border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
-        /* Right */
+        /* Right - MET WIN COUNTER */
         #rightBoxes {
             display: flex;
             flex-direction: column;
-            gap: clamp(3px, 0.4vw, 6px);
+            gap: 4px;
         }
 
         #roomCode {
             background: linear-gradient(135deg, #8B4513, #A0522D);
-            padding: clamp(6px, 0.7vw, 10px);
-            border-radius: clamp(6px, 0.8vw, 10px);
-            font-size: clamp(11px, 1.2vw, 16px);
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: bold;
             color: white;
-            border: 3px solid #FFD700;
+            border: 2px solid #FFD700;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+        }
+
+        #winCounter {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 4px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: bold;
+            color: #654321;
+            border: 2px solid #FF8C00;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
         }
 
         #turnIndicator {
             flex: 1;
-            padding: clamp(4px, 0.5vw, 8px);
+            padding: 5px;
             background: linear-gradient(135deg, #228B22, #32CD32);
             color: white;
-            border-radius: clamp(6px, 0.8vw, 10px);
-            font-size: clamp(10px, 1.1vw, 13px);
+            border-radius: 8px;
+            font-size: 11px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 3px solid #1a6b1a;
+            border: 2px solid #1a6b1a;
             box-shadow: 0 3px 10px rgba(0,0,0,0.4);
             text-align: center;
         }
@@ -296,17 +308,17 @@
             border-color: #8B0000;
         }
 
-        /* Main Area - RESPONSIVE */
+        /* Main Area */
         #mainArea {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: clamp(6px, 0.7vw, 10px);
+            gap: 8px;
         }
 
         .playAreaBox {
             background: url('/images/boards/Speelvlak-template.jpg') center/cover;
-            border: clamp(2px, 0.3vw, 4px) solid #8B4513;
-            border-radius: clamp(8px, 1vw, 12px);
+            border: 3px solid #8B4513;
+            border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             cursor: pointer;
@@ -316,7 +328,7 @@
         }
 
         .playAreaBox:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(34, 139, 34, 0.5);
             border-color: #228B22;
         }
@@ -331,41 +343,41 @@
             background: rgba(139, 69, 19, 0.9);
             color: white;
             text-align: center;
-            padding: clamp(3px, 0.4vw, 5px);
-            font-size: clamp(10px, 1.1vw, 13px);
+            padding: 3px;
+            font-size: 11px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-weight: bold;
         }
 
         .playAreaContent {
             flex: 1;
-            padding: clamp(4px, 0.6vw, 8px);
+            padding: 6px;
             background: rgba(255, 250, 240, 0.75);
             display: flex;
             flex-direction: column;
-            gap: clamp(3px, 0.4vw, 6px);
+            gap: 4px;
         }
 
-        /* Speciale kaarten bovenaan - RESPONSIVE */
+        /* Speciale kaarten bovenaan - KLEINER */
         .spec-slots {
             display: flex;
-            gap: clamp(3px, 0.4vw, 6px);
-            height: clamp(55px, 7vh, 80px);
+            gap: 4px;
+            height: 60px;
             justify-content: center;
-            padding: clamp(2px, 0.3vw, 5px) 0;
+            padding: 3px 0;
             position: relative;
         }
 
         .spec-slot {
-            width: clamp(70px, 8vw, 100px);
-            height: clamp(50px, 6.5vh, 70px);
+            width: 75px;
+            height: 55px;
             background: rgba(173, 216, 230, 0.7);
             border: 2px dashed #4682B4;
-            border-radius: clamp(5px, 0.6vw, 8px);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(7px, 0.8vw, 9px);
+            font-size: 8px;
             color: #4682B4;
             font-weight: bold;
             overflow: visible;
@@ -374,20 +386,20 @@
 
         .spec-slot .spec-card {
             width: 100%;
-            height: 140%;
+            height: 130%;
             border: 2px solid #333;
-            border-radius: clamp(5px, 0.6vw, 8px);
+            border-radius: 6px;
             overflow: hidden;
             background: white;
             box-shadow: 0 3px 8px rgba(0,0,0,0.5);
             cursor: pointer;
             transition: all 0.3s;
             position: absolute;
-            top: -10%;
+            top: -8%;
         }
 
         .spec-slot .spec-card:hover {
-            transform: translateY(-15px) scale(1.1);
+            transform: translateY(-12px) scale(1.1);
             z-index: 100;
         }
 
@@ -397,21 +409,21 @@
             object-fit: cover;
         }
 
-        /* GESTAPELDE LAYOUT - RESPONSIVE */
+        /* GESTAPELDE LAYOUT */
         .stacked-layout {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            padding: clamp(2px, 0.3vw, 5px);
+            padding: 4px;
             position: relative;
-            min-height: clamp(140px, 18vh, 200px);
+            min-height: 160px;
         }
 
         .stacked-cards-container {
             position: relative;
-            width: clamp(90px, 10vw, 120px);
+            width: 100px;
             height: 100%;
             display: flex;
             flex-direction: column-reverse;
@@ -419,10 +431,10 @@
         }
 
         .stacked-card {
-            width: clamp(90px, 10vw, 120px);
-            height: clamp(126px, 14vh, 168px);
-            border: clamp(2px, 0.25vw, 3px) solid #333;
-            border-radius: clamp(5px, 0.6vw, 8px);
+            width: 100px;
+            height: 140px;
+            border: 2px solid #333;
+            border-radius: 6px;
             overflow: hidden;
             background: white;
             box-shadow: 0 3px 8px rgba(0,0,0,0.4);
@@ -431,34 +443,14 @@
             transition: all 0.3s ease;
         }
 
-        /* Positionering gestapelde kaarten - RESPONSIVE */
-        .stacked-card[data-position="1"] {
-            bottom: 0;
-            z-index: 5;
-        }
-
-        .stacked-card[data-position="2"] {
-            bottom: clamp(24px, 3vh, 35px);
-            z-index: 4;
-        }
-
-        .stacked-card[data-position="3"] {
-            bottom: clamp(48px, 6vh, 70px);
-            z-index: 3;
-        }
-
-        .stacked-card[data-position="4"] {
-            bottom: clamp(72px, 9vh, 105px);
-            z-index: 2;
-        }
-
-        .stacked-card[data-position="5"] {
-            bottom: clamp(96px, 12vh, 140px);
-            z-index: 1;
-        }
+        .stacked-card[data-position="1"] { bottom: 0; z-index: 5; }
+        .stacked-card[data-position="2"] { bottom: 28px; z-index: 4; }
+        .stacked-card[data-position="3"] { bottom: 56px; z-index: 3; }
+        .stacked-card[data-position="4"] { bottom: 84px; z-index: 2; }
+        .stacked-card[data-position="5"] { bottom: 112px; z-index: 1; }
 
         .stacked-card:hover {
-            transform: translateY(clamp(-15px, -2vh, -20px)) scale(1.08);
+            transform: translateY(-15px) scale(1.08);
             z-index: 100 !important;
             box-shadow: 0 8px 20px rgba(0,0,0,0.6);
         }
@@ -472,59 +464,65 @@
 
         .stacked-card .card-number {
             position: absolute;
-            top: clamp(3px, 0.4vw, 5px);
-            left: clamp(3px, 0.4vw, 5px);
+            top: 4px;
+            left: 4px;
             background: rgba(139, 69, 19, 0.95);
             color: white;
-            width: clamp(20px, 2.2vw, 26px);
-            height: clamp(20px, 2.2vw, 26px);
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(11px, 1.2vw, 14px);
+            font-size: 12px;
             font-weight: bold;
             border: 2px solid #FFD700;
             box-shadow: 0 2px 4px rgba(0,0,0,0.4);
             z-index: 10;
         }
 
-        /* Hand - RESPONSIVE */
+        /* Hand - HORIZONTALE RIJ, GEEN OVERLAP, VOLLEDIG LEESBAAR */
         #handArea {
             background: linear-gradient(135deg, rgba(245, 222, 179, 0.98), rgba(222, 184, 135, 0.98));
-            border: clamp(3px, 0.4vw, 5px) solid #8B4513;
-            border-radius: clamp(10px, 1.2vw, 15px);
-            padding: clamp(8px, 1vw, 15px);
+            border: 4px solid #8B4513;
+            border-radius: 12px;
+            padding: 12px;
             box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            overflow-x: auto;
+            overflow-y: hidden;
         }
 
         #handArea h2 {
             color: #654321;
             text-align: center;
-            margin-bottom: clamp(5px, 0.6vw, 10px);
-            font-size: clamp(12px, 1.4vw, 16px);
+            margin-bottom: 8px;
+            font-size: 14px;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
 
         #hand {
             display: flex;
-            gap: clamp(6px, 0.8vw, 12px);
-            justify-content: center;
-            height: calc(100% - clamp(22px, 2.6vw, 36px));
+            gap: 10px;
+            justify-content: flex-start;
+            height: calc(100% - 28px);
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
 
         .card {
-            width: clamp(100px, 11vw, 140px);
-            height: clamp(140px, 15.4vh, 196px);
-            border: clamp(2px, 0.25vw, 3px) solid #333;
-            border-radius: clamp(6px, 0.7vw, 10px);
+            min-width: 160px;
+            width: 160px;
+            height: 224px;
+            border: 3px solid #333;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             overflow: hidden;
             background: white;
+            flex-shrink: 0;
         }
 
         .card img {
@@ -535,20 +533,20 @@
         }
 
         .card:hover {
-            transform: translateY(clamp(-20px, -3vh, -30px)) scale(1.1);
+            transform: translateY(-25px) scale(1.1);
             z-index: 100;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
         .card.selected {
-            transform: translateY(clamp(-25px, -3.5vh, -35px)) scale(1.15);
+            transform: translateY(-30px) scale(1.15);
             border-color: #FFD700;
-            border-width: clamp(3px, 0.4vw, 5px);
+            border-width: 4px;
             box-shadow: 0 20px 45px rgba(255, 215, 0, 0.9);
             z-index: 200;
         }
 
-        /* Big Five Modal - RESPONSIVE */
+        /* Big Five Modal */
         #bigFiveModal {
             display: none;
             position: fixed;
@@ -564,10 +562,10 @@
 
         .bigfive-content {
             background: linear-gradient(135deg, #FFD700, #FFA500);
-            padding: clamp(20px, 4vw, 40px);
-            border-radius: clamp(15px, 2vw, 30px);
+            padding: 30px;
+            border-radius: 20px;
             text-align: center;
-            border: clamp(4px, 0.6vw, 8px) solid #FF8C00;
+            border: 6px solid #FF8C00;
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             max-width: 90vw;
             max-height: 90vh;
@@ -576,31 +574,31 @@
 
         .bigfive-content h2 {
             color: #8B4513;
-            font-size: clamp(1.5em, 4vw, 2.5em);
-            margin-bottom: clamp(5px, 1vw, 10px);
+            font-size: 2em;
+            margin-bottom: 8px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
         }
 
         .bigfive-content .player-name {
-            font-size: clamp(1.2em, 3vw, 1.8em);
+            font-size: 1.5em;
             color: #654321;
-            margin-bottom: clamp(10px, 2vw, 20px);
+            margin-bottom: 15px;
             font-weight: bold;
         }
 
         .bigfive-cards-display {
             display: flex;
-            gap: clamp(8px, 1.5vw, 15px);
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: clamp(10px, 2vw, 20px) 0;
+            margin: 15px 0;
         }
 
         .bigfive-card {
-            width: clamp(100px, 11vw, 140px);
-            height: clamp(140px, 15.4vh, 196px);
-            border: clamp(2px, 0.4vw, 4px) solid #654321;
-            border-radius: clamp(6px, 0.8vw, 10px);
+            width: 120px;
+            height: 168px;
+            border: 3px solid #654321;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation: cardReveal 0.5s ease-out;
@@ -618,42 +616,42 @@
         }
 
         .bigfive-points {
-            font-size: clamp(2em, 5vw, 3em);
+            font-size: 2.5em;
             color: #654321;
-            margin: clamp(10px, 2vw, 20px) 0;
+            margin: 15px 0;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .bigfive-emoji {
-            font-size: clamp(50px, 8vw, 80px);
+            font-size: 60px;
             animation: bounce 1s infinite;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
-        /* Special Effect Notification - RESPONSIVE */
+        /* Special Effect Notification */
         #specialEffectNotification {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: linear-gradient(135deg, #FFD700, #FFA500);
-            padding: clamp(15px, 3vw, 30px) clamp(25px, 5vw, 50px);
-            border-radius: clamp(10px, 1.5vw, 20px);
-            border: clamp(3px, 0.4vw, 5px) solid #FF8C00;
+            padding: 20px 40px;
+            border-radius: 15px;
+            border: 4px solid #FF8C00;
             box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-            font-size: clamp(14px, 2vw, 20px);
+            font-size: 16px;
             font-weight: bold;
             color: #654321;
             text-align: center;
             z-index: 9999;
             display: none;
             animation: popIn 0.3s ease-out;
-            max-width: 90vw;
+            max-width: 80vw;
         }
 
         @keyframes popIn {
@@ -661,7 +659,7 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        /* Winner Modal - RESPONSIVE */
+        /* Winner Modal */
         #winnerModal {
             display: none;
             position: fixed;
@@ -677,35 +675,23 @@
 
         .winner-content {
             background: linear-gradient(135deg, #FFD700, #FFA500);
-            padding: clamp(30px, 6vw, 60px);
-            border-radius: clamp(15px, 2vw, 30px);
+            padding: 50px;
+            border-radius: 25px;
             text-align: center;
-            border: clamp(4px, 0.6vw, 8px) solid #FF8C00;
+            border: 6px solid #FF8C00;
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
         }
 
         .winner-content h2 {
             color: #8B4513;
-            font-size: clamp(2em, 6vw, 3.5em);
-            margin-bottom: clamp(10px, 2vw, 20px);
+            font-size: 3em;
+            margin-bottom: 15px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
         }
 
         .winner-emoji {
-            font-size: clamp(70px, 10vw, 120px);
+            font-size: 100px;
             animation: bounce 1s infinite;
-        }
-
-        /* Media Queries voor extra kleine schermen */
-        @media (max-width: 768px) {
-            #topSection {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto auto;
-            }
-            
-            #mainArea {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -754,6 +740,7 @@
 
             <div id="rightBoxes">
                 <div id="roomCode">ROOM: ----</div>
+                <div id="winCounter">🏆 Geen winsten</div>
                 <div id="turnIndicator">⏳ Wachten...</div>
             </div>
         </div>
@@ -763,9 +750,9 @@
             <div class="playAreaBox" onclick="selectArea(0)">
                 <h3>SPEELVLAK 1</h3>
                 <div class="playAreaContent">
-                    <div class="spec-slots" id="area0specSlots">
-                        <div class="spec-slot" id="area0spec0">Spec 1</div>
-                        <div class="spec-slot" id="area0spec1">Spec 2</div>
+                    <div class="spec-slots">
+                        <div class="spec-slot" id="area0spec0">S1</div>
+                        <div class="spec-slot" id="area0spec1">S2</div>
                     </div>
                     <div class="stacked-layout">
                         <div class="stacked-cards-container" id="area0stacked"></div>
@@ -776,9 +763,9 @@
             <div class="playAreaBox" onclick="selectArea(1)">
                 <h3>SPEELVLAK 2</h3>
                 <div class="playAreaContent">
-                    <div class="spec-slots" id="area1specSlots">
-                        <div class="spec-slot" id="area1spec0">Spec 1</div>
-                        <div class="spec-slot" id="area1spec1">Spec 2</div>
+                    <div class="spec-slots">
+                        <div class="spec-slot" id="area1spec0">S1</div>
+                        <div class="spec-slot" id="area1spec1">S2</div>
                     </div>
                     <div class="stacked-layout">
                         <div class="stacked-cards-container" id="area1stacked"></div>
@@ -789,9 +776,9 @@
             <div class="playAreaBox" onclick="selectArea(2)">
                 <h3>SPEELVLAK 3</h3>
                 <div class="playAreaContent">
-                    <div class="spec-slots" id="area2specSlots">
-                        <div class="spec-slot" id="area2spec0">Spec 1</div>
-                        <div class="spec-slot" id="area2spec1">Spec 2</div>
+                    <div class="spec-slots">
+                        <div class="spec-slot" id="area2spec0">S1</div>
+                        <div class="spec-slot" id="area2spec1">S2</div>
                     </div>
                     <div class="stacked-layout">
                         <div class="stacked-cards-container" id="area2stacked"></div>
@@ -828,6 +815,7 @@
             <div class="winner-emoji">🏆</div>
             <h2>WINNAAR!</h2>
             <p id="winnerText"></p>
+            <p id="winnerStats" style="margin-top: 15px; font-size: 1.2em; color: #654321;"></p>
             <button onclick="location.reload()">🔄 Nieuw Spel</button>
         </div>
     </div>
@@ -838,6 +826,31 @@
         let myPlayerId = null;
         let currentRoomId = null;
         let selectedCard = null;
+
+        // WIN COUNTER - LocalStorage
+        function getWinCount(playerName) {
+            const wins = localStorage.getItem(`bigfive_wins_${playerName}`);
+            return wins ? parseInt(wins) : 0;
+        }
+
+        function incrementWinCount(playerName) {
+            const currentWins = getWinCount(playerName);
+            localStorage.setItem(`bigfive_wins_${playerName}`, currentWins + 1);
+            return currentWins + 1;
+        }
+
+        function updateWinCounter() {
+            if (!gameState || !gameState.players) return;
+            
+            const player1 = gameState.players[0];
+            const player2 = gameState.players[1];
+            
+            const wins1 = getWinCount(player1.name);
+            const wins2 = getWinCount(player2.name);
+            
+            document.getElementById('winCounter').textContent = 
+                `🏆 ${player1.name}: ${wins1} | ${player2.name}: ${wins2}`;
+        }
 
         function createRoom() {
             const playerName = document.getElementById('playerName').value.trim();
@@ -897,6 +910,10 @@
 
         function closeBigFiveModal() {
             document.getElementById('bigFiveModal').style.display = 'none';
+            // RE-RENDER om game te unfreezen
+            if (gameState) {
+                renderGame();
+            }
         }
 
         function showGameScreen() {
@@ -925,6 +942,7 @@
             }
             
             renderGame();
+            updateWinCounter();
             
             if (specialEffect && !bigFiveData) {
                 showSpecialEffect(specialEffect);
@@ -976,25 +994,21 @@
                 const areaBox = document.querySelector(`[onclick="selectArea(${areaIdx})"]`);
                 areaBox.classList.toggle('blocked', area.blocked);
 
-                // Clear stacked cards
                 const stackedContainer = document.getElementById(`area${areaIdx}stacked`);
                 stackedContainer.innerHTML = '';
                 
-                // Clear special slots
                 for (let spec = 0; spec < 2; spec++) {
                     const specSlot = document.getElementById(`area${areaIdx}spec${spec}`);
-                    if (specSlot) specSlot.innerHTML = `Spec ${spec + 1}`;
+                    if (specSlot) specSlot.innerHTML = `S${spec + 1}`;
                 }
 
-                // Render GESTAPELDE kaarten - PRIVACY FIX
                 area.cards.forEach((card, cardIdx) => {
                     const cardEl = document.createElement('div');
                     cardEl.className = 'stacked-card';
                     cardEl.setAttribute('data-position', cardIdx + 1);
                     
-                    // ALLEEN EIGEN KAARTEN TONEN
                     const isMyCard = card.owner === myPlayerId;
-                    const imageNum = isMyCard ? card.imageNum : 55;  // 55 = achterkant
+                    const imageNum = isMyCard ? card.imageNum : 55;
                     
                     cardEl.innerHTML = `
                         <div class="card-number">${cardIdx + 1}</div>
@@ -1004,14 +1018,12 @@
                     stackedContainer.appendChild(cardEl);
                 });
 
-                // Render special cards - PRIVACY FIX
                 area.specialCards.forEach((card, specIdx) => {
                     if (specIdx < 2) {
                         const specSlot = document.getElementById(`area${areaIdx}spec${specIdx}`);
                         if (specSlot) {
-                            // ALLEEN EIGEN KAARTEN TONEN
                             const isMyCard = card.owner === myPlayerId;
-                            const imageNum = isMyCard ? card.imageNum : 55;  // 55 = achterkant
+                            const imageNum = isMyCard ? card.imageNum : 55;
                             
                             const specCard = document.createElement('div');
                             specCard.className = 'spec-card';
@@ -1073,8 +1085,14 @@
 
         function showWinner() {
             const winner = gameState.players[gameState.winner];
+            const newWinCount = incrementWinCount(winner.name);
+            
             document.getElementById('winnerText').textContent = 
                 `${winner.name} wint met ${winner.score} punten!`;
+            
+            document.getElementById('winnerStats').textContent = 
+                `🏆 Totaal winsten: ${newWinCount}`;
+            
             document.getElementById('winnerModal').style.display = 'flex';
         }
     </script>
