@@ -15,6 +15,7 @@
         body {
             font-family: 'Arial', sans-serif;
             background: url('/images/boards/Safari-Route-achtergrond.jpg') center/cover fixed;
+            width: 100vw;
             height: 100vh;
             overflow: hidden;
         }
@@ -23,11 +24,11 @@
         #lobby {
             display: block;
             background: linear-gradient(135deg, rgba(255, 250, 240, 0.98), rgba(255, 228, 181, 0.98));
-            padding: 40px;
+            padding: clamp(20px, 4vw, 40px);
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             text-align: center;
-            max-width: 500px;
+            max-width: min(500px, 90vw);
             margin: 10vh auto;
             border: 5px solid #8B4513;
         }
@@ -35,7 +36,7 @@
         #lobby h1 {
             color: #2E5C8A;
             margin-bottom: 15px;
-            font-size: 2.5em;
+            font-size: clamp(1.5em, 5vw, 2.5em);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
@@ -77,52 +78,53 @@
             font-weight: bold;
         }
 
-        /* Game Container */
+        /* Game Container - RESPONSIVE */
         #gameContainer {
             display: none !important;
+            width: 100vw;
             height: 100vh;
-            padding: 8px;
-            grid-template-rows: 140px 1fr 260px;
-            gap: 8px;
+            padding: clamp(4px, 0.5vw, 8px);
+            grid-template-rows: minmax(120px, 14vh) 1fr minmax(220px, 26vh);
+            gap: clamp(4px, 0.5vw, 8px);
         }
 
         #gameContainer.active {
             display: grid !important;
         }
 
-        /* Top Section */
+        /* Top Section - RESPONSIVE */
         #topSection {
             display: grid;
-            grid-template-columns: 220px 110px 1fr 220px;
-            gap: 8px;
+            grid-template-columns: minmax(180px, 18vw) minmax(90px, 9vw) 1fr minmax(180px, 18vw);
+            gap: clamp(4px, 0.5vw, 8px);
         }
 
         /* Safari Route */
         #safariRouteBox {
             background: rgba(245, 222, 179, 0.95);
-            border: 4px solid #8B4513;
-            border-radius: 12px;
-            padding: 8px;
+            border: clamp(2px, 0.3vw, 4px) solid #8B4513;
+            border-radius: clamp(8px, 1vw, 12px);
+            padding: clamp(4px, 0.6vw, 8px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         #safariRouteBox h3 {
             text-align: center;
             color: #2E5C8A;
-            font-size: 11px;
-            margin-bottom: 4px;
+            font-size: clamp(9px, 1vw, 12px);
+            margin-bottom: clamp(2px, 0.4vw, 5px);
             font-weight: bold;
         }
 
         .route-player {
             display: flex;
             align-items: center;
-            gap: 3px;
-            padding: 3px 4px;
+            gap: clamp(2px, 0.3vw, 3px);
+            padding: clamp(2px, 0.3vw, 4px) clamp(3px, 0.4vw, 5px);
             background: rgba(255, 255, 255, 0.85);
-            border-radius: 6px;
+            border-radius: clamp(4px, 0.5vw, 6px);
             border: 2px solid #654321;
-            margin-bottom: 3px;
+            margin-bottom: clamp(2px, 0.3vw, 4px);
         }
 
         .route-player.active {
@@ -132,22 +134,25 @@
         }
 
         .route-label {
-            min-width: 35px;
+            min-width: clamp(30px, 3vw, 40px);
             font-weight: bold;
-            font-size: 9px;
+            font-size: clamp(8px, 0.9vw, 10px);
             color: #654321;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .safari-route {
             display: flex;
-            gap: 2px;
+            gap: clamp(1px, 0.2vw, 2px);
             flex: 1;
             flex-wrap: wrap;
         }
 
         .route-step {
-            width: 18px;
-            height: 18px;
+            width: clamp(16px, 1.8vw, 20px);
+            height: clamp(16px, 1.8vw, 20px);
             border-radius: 50%;
             background: #D3D3D3;
             border: 2px solid #999;
@@ -155,7 +160,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 8px;
+            font-size: clamp(7px, 0.8vw, 9px);
             color: #666;
             transition: all 0.3s;
         }
@@ -180,19 +185,19 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Deck & Discard */
+        /* Deck & Discard - GEFIXTE LAYOUT */
         #deckDiscardBox {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: clamp(3px, 0.4vw, 5px);
         }
 
         .card-pile {
             flex: 1;
             background: rgba(245, 222, 179, 0.95);
-            border: 3px solid #8B4513;
-            border-radius: 10px;
-            padding: 5px;
+            border: clamp(2px, 0.3vw, 3px) solid #8B4513;
+            border-radius: clamp(6px, 0.8vw, 10px);
+            padding: clamp(3px, 0.4vw, 5px);
             text-align: center;
             box-shadow: 0 3px 10px rgba(0,0,0,0.4);
             cursor: pointer;
@@ -205,14 +210,15 @@
         }
 
         .card-pile h4 {
-            font-size: 9px;
+            font-size: clamp(8px, 0.9vw, 10px);
             color: #654321;
-            margin-bottom: 2px;
+            margin-bottom: clamp(1px, 0.2vw, 2px);
+            font-weight: bold;
         }
 
         .pile-visual {
-            width: 45px;
-            height: 63px;
+            width: clamp(35px, 4vw, 50px);
+            height: clamp(49px, 5.6vw, 70px);
             margin: 0 auto;
             border: 2px solid #333;
             border-radius: 5px;
@@ -220,23 +226,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: clamp(14px, 1.6vw, 20px);
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .pile-count {
             position: absolute;
-            top: 4px;
-            right: 4px;
+            top: clamp(2px, 0.3vw, 4px);
+            right: clamp(2px, 0.3vw, 4px);
             background: #FFD700;
             color: #654321;
-            width: 18px;
-            height: 18px;
+            width: clamp(16px, 1.8vw, 20px);
+            height: clamp(16px, 1.8vw, 20px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: clamp(9px, 1vw, 11px);
             font-weight: bold;
             border: 2px solid #8B4513;
         }
@@ -245,7 +251,7 @@
         #bigFiveBox {
             background: url('/images/boards/Big-Five-indicator-strip.jpg') center/contain no-repeat;
             background-size: 100% 100%;
-            border-radius: 12px;
+            border-radius: clamp(8px, 1vw, 12px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
@@ -253,14 +259,14 @@
         #rightBoxes {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: clamp(3px, 0.4vw, 6px);
         }
 
         #roomCode {
             background: linear-gradient(135deg, #8B4513, #A0522D);
-            padding: 8px;
-            border-radius: 10px;
-            font-size: 14px;
+            padding: clamp(6px, 0.7vw, 10px);
+            border-radius: clamp(6px, 0.8vw, 10px);
+            font-size: clamp(11px, 1.2vw, 16px);
             font-weight: bold;
             color: white;
             border: 3px solid #FFD700;
@@ -271,11 +277,11 @@
 
         #turnIndicator {
             flex: 1;
-            padding: 6px;
+            padding: clamp(4px, 0.5vw, 8px);
             background: linear-gradient(135deg, #228B22, #32CD32);
             color: white;
-            border-radius: 10px;
-            font-size: 12px;
+            border-radius: clamp(6px, 0.8vw, 10px);
+            font-size: clamp(10px, 1.1vw, 13px);
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -290,17 +296,17 @@
             border-color: #8B0000;
         }
 
-        /* Main Area */
+        /* Main Area - RESPONSIVE */
         #mainArea {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: clamp(6px, 0.7vw, 10px);
         }
 
         .playAreaBox {
             background: url('/images/boards/Speelvlak-template.jpg') center/cover;
-            border: 4px solid #8B4513;
-            border-radius: 12px;
+            border: clamp(2px, 0.3vw, 4px) solid #8B4513;
+            border-radius: clamp(8px, 1vw, 12px);
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             cursor: pointer;
@@ -325,41 +331,41 @@
             background: rgba(139, 69, 19, 0.9);
             color: white;
             text-align: center;
-            padding: 4px;
-            font-size: 12px;
+            padding: clamp(3px, 0.4vw, 5px);
+            font-size: clamp(10px, 1.1vw, 13px);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-weight: bold;
         }
 
         .playAreaContent {
             flex: 1;
-            padding: 8px;
+            padding: clamp(4px, 0.6vw, 8px);
             background: rgba(255, 250, 240, 0.75);
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: clamp(3px, 0.4vw, 6px);
         }
 
-        /* Speciale kaarten bovenaan - HORIZONTAAL GESTAPELD */
+        /* Speciale kaarten bovenaan - RESPONSIVE */
         .spec-slots {
             display: flex;
-            gap: 0;
-            height: 80px;
+            gap: clamp(3px, 0.4vw, 6px);
+            height: clamp(55px, 7vh, 80px);
             justify-content: center;
-            padding: 5px 0;
+            padding: clamp(2px, 0.3vw, 5px) 0;
             position: relative;
         }
 
         .spec-slot {
-            width: 100px;
-            height: 70px;
+            width: clamp(70px, 8vw, 100px);
+            height: clamp(50px, 6.5vh, 70px);
             background: rgba(173, 216, 230, 0.7);
             border: 2px dashed #4682B4;
-            border-radius: 8px;
+            border-radius: clamp(5px, 0.6vw, 8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 9px;
+            font-size: clamp(7px, 0.8vw, 9px);
             color: #4682B4;
             font-weight: bold;
             overflow: visible;
@@ -367,21 +373,21 @@
         }
 
         .spec-slot .spec-card {
-            width: 100px;
-            height: 140px;
-            border: 3px solid #333;
-            border-radius: 8px;
+            width: 100%;
+            height: 140%;
+            border: 2px solid #333;
+            border-radius: clamp(5px, 0.6vw, 8px);
             overflow: hidden;
             background: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.5);
             cursor: pointer;
             transition: all 0.3s;
             position: absolute;
-            top: -10px;
+            top: -10%;
         }
 
         .spec-slot .spec-card:hover {
-            transform: translateY(-15px) scale(1.15);
+            transform: translateY(-15px) scale(1.1);
             z-index: 100;
         }
 
@@ -391,21 +397,21 @@
             object-fit: cover;
         }
 
-        /* GESTAPELDE LAYOUT voor kaarten - ZOALS JOUW AFBEELDING */
+        /* GESTAPELDE LAYOUT - RESPONSIVE */
         .stacked-layout {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            padding: 5px;
+            padding: clamp(2px, 0.3vw, 5px);
             position: relative;
-            min-height: 200px;
+            min-height: clamp(140px, 18vh, 200px);
         }
 
         .stacked-cards-container {
             position: relative;
-            width: 120px;
+            width: clamp(90px, 10vw, 120px);
             height: 100%;
             display: flex;
             flex-direction: column-reverse;
@@ -413,10 +419,10 @@
         }
 
         .stacked-card {
-            width: 120px;
-            height: 168px;
-            border: 3px solid #333;
-            border-radius: 8px;
+            width: clamp(90px, 10vw, 120px);
+            height: clamp(126px, 14vh, 168px);
+            border: clamp(2px, 0.25vw, 3px) solid #333;
+            border-radius: clamp(5px, 0.6vw, 8px);
             overflow: hidden;
             background: white;
             box-shadow: 0 3px 8px rgba(0,0,0,0.4);
@@ -425,34 +431,34 @@
             transition: all 0.3s ease;
         }
 
-        /* Positionering van gestapelde kaarten (van onder naar boven) */
+        /* Positionering gestapelde kaarten - RESPONSIVE */
         .stacked-card[data-position="1"] {
             bottom: 0;
             z-index: 5;
         }
 
         .stacked-card[data-position="2"] {
-            bottom: 35px;
+            bottom: clamp(24px, 3vh, 35px);
             z-index: 4;
         }
 
         .stacked-card[data-position="3"] {
-            bottom: 70px;
+            bottom: clamp(48px, 6vh, 70px);
             z-index: 3;
         }
 
         .stacked-card[data-position="4"] {
-            bottom: 105px;
+            bottom: clamp(72px, 9vh, 105px);
             z-index: 2;
         }
 
         .stacked-card[data-position="5"] {
-            bottom: 140px;
+            bottom: clamp(96px, 12vh, 140px);
             z-index: 1;
         }
 
         .stacked-card:hover {
-            transform: translateY(-20px) scale(1.1);
+            transform: translateY(clamp(-15px, -2vh, -20px)) scale(1.08);
             z-index: 100 !important;
             box-shadow: 0 8px 20px rgba(0,0,0,0.6);
         }
@@ -466,54 +472,54 @@
 
         .stacked-card .card-number {
             position: absolute;
-            top: 5px;
-            left: 5px;
+            top: clamp(3px, 0.4vw, 5px);
+            left: clamp(3px, 0.4vw, 5px);
             background: rgba(139, 69, 19, 0.95);
             color: white;
-            width: 26px;
-            height: 26px;
+            width: clamp(20px, 2.2vw, 26px);
+            height: clamp(20px, 2.2vw, 26px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: clamp(11px, 1.2vw, 14px);
             font-weight: bold;
             border: 2px solid #FFD700;
             box-shadow: 0 2px 4px rgba(0,0,0,0.4);
             z-index: 10;
         }
 
-        /* Hand - VEEL GROTER */
+        /* Hand - RESPONSIVE */
         #handArea {
             background: linear-gradient(135deg, rgba(245, 222, 179, 0.98), rgba(222, 184, 135, 0.98));
-            border: 5px solid #8B4513;
-            border-radius: 15px;
-            padding: 15px;
+            border: clamp(3px, 0.4vw, 5px) solid #8B4513;
+            border-radius: clamp(10px, 1.2vw, 15px);
+            padding: clamp(8px, 1vw, 15px);
             box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
         }
 
         #handArea h2 {
             color: #654321;
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 16px;
+            margin-bottom: clamp(5px, 0.6vw, 10px);
+            font-size: clamp(12px, 1.4vw, 16px);
             text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
 
         #hand {
             display: flex;
-            gap: 12px;
+            gap: clamp(6px, 0.8vw, 12px);
             justify-content: center;
-            height: calc(100% - 36px);
+            height: calc(100% - clamp(22px, 2.6vw, 36px));
             align-items: center;
             flex-wrap: wrap;
         }
 
         .card {
-            width: 140px;  /* GROTER */
-            height: 196px;  /* GROTER */
-            border: 3px solid #333;
-            border-radius: 10px;
+            width: clamp(100px, 11vw, 140px);
+            height: clamp(140px, 15.4vh, 196px);
+            border: clamp(2px, 0.25vw, 3px) solid #333;
+            border-radius: clamp(6px, 0.7vw, 10px);
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
@@ -529,20 +535,20 @@
         }
 
         .card:hover {
-            transform: translateY(-30px) scale(1.15);
+            transform: translateY(clamp(-20px, -3vh, -30px)) scale(1.1);
             z-index: 100;
             box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
         .card.selected {
-            transform: translateY(-35px) scale(1.2);
+            transform: translateY(clamp(-25px, -3.5vh, -35px)) scale(1.15);
             border-color: #FFD700;
-            border-width: 5px;
+            border-width: clamp(3px, 0.4vw, 5px);
             box-shadow: 0 20px 45px rgba(255, 215, 0, 0.9);
             z-index: 200;
         }
 
-        /* Big Five Completion Modal */
+        /* Big Five Modal - RESPONSIVE */
         #bigFiveModal {
             display: none;
             position: fixed;
@@ -558,43 +564,43 @@
 
         .bigfive-content {
             background: linear-gradient(135deg, #FFD700, #FFA500);
-            padding: 40px;
-            border-radius: 30px;
+            padding: clamp(20px, 4vw, 40px);
+            border-radius: clamp(15px, 2vw, 30px);
             text-align: center;
-            border: 8px solid #FF8C00;
+            border: clamp(4px, 0.6vw, 8px) solid #FF8C00;
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 90vw;
+            max-height: 90vh;
             overflow: auto;
         }
 
         .bigfive-content h2 {
             color: #8B4513;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: clamp(1.5em, 4vw, 2.5em);
+            margin-bottom: clamp(5px, 1vw, 10px);
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
         }
 
         .bigfive-content .player-name {
-            font-size: 1.8em;
+            font-size: clamp(1.2em, 3vw, 1.8em);
             color: #654321;
-            margin-bottom: 20px;
+            margin-bottom: clamp(10px, 2vw, 20px);
             font-weight: bold;
         }
 
         .bigfive-cards-display {
             display: flex;
-            gap: 15px;
+            gap: clamp(8px, 1.5vw, 15px);
             justify-content: center;
             flex-wrap: wrap;
-            margin: 20px 0;
+            margin: clamp(10px, 2vw, 20px) 0;
         }
 
         .bigfive-card {
-            width: 140px;
-            height: 196px;
-            border: 4px solid #654321;
-            border-radius: 10px;
+            width: clamp(100px, 11vw, 140px);
+            height: clamp(140px, 15.4vh, 196px);
+            border: clamp(2px, 0.4vw, 4px) solid #654321;
+            border-radius: clamp(6px, 0.8vw, 10px);
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             animation: cardReveal 0.5s ease-out;
@@ -612,15 +618,15 @@
         }
 
         .bigfive-points {
-            font-size: 3em;
+            font-size: clamp(2em, 5vw, 3em);
             color: #654321;
-            margin: 20px 0;
+            margin: clamp(10px, 2vw, 20px) 0;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .bigfive-emoji {
-            font-size: 80px;
+            font-size: clamp(50px, 8vw, 80px);
             animation: bounce 1s infinite;
         }
 
@@ -629,25 +635,25 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Special Effect Notification */
+        /* Special Effect Notification - RESPONSIVE */
         #specialEffectNotification {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: linear-gradient(135deg, #FFD700, #FFA500);
-            padding: 30px 50px;
-            border-radius: 20px;
-            border: 5px solid #FF8C00;
+            padding: clamp(15px, 3vw, 30px) clamp(25px, 5vw, 50px);
+            border-radius: clamp(10px, 1.5vw, 20px);
+            border: clamp(3px, 0.4vw, 5px) solid #FF8C00;
             box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-            font-size: 20px;
+            font-size: clamp(14px, 2vw, 20px);
             font-weight: bold;
             color: #654321;
             text-align: center;
             z-index: 9999;
             display: none;
             animation: popIn 0.3s ease-out;
-            max-width: 500px;
+            max-width: 90vw;
         }
 
         @keyframes popIn {
@@ -655,7 +661,7 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
-        /* Winner Modal */
+        /* Winner Modal - RESPONSIVE */
         #winnerModal {
             display: none;
             position: fixed;
@@ -671,23 +677,35 @@
 
         .winner-content {
             background: linear-gradient(135deg, #FFD700, #FFA500);
-            padding: 60px;
-            border-radius: 30px;
+            padding: clamp(30px, 6vw, 60px);
+            border-radius: clamp(15px, 2vw, 30px);
             text-align: center;
-            border: 8px solid #FF8C00;
+            border: clamp(4px, 0.6vw, 8px) solid #FF8C00;
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
         }
 
         .winner-content h2 {
             color: #8B4513;
-            font-size: 3.5em;
-            margin-bottom: 20px;
+            font-size: clamp(2em, 6vw, 3.5em);
+            margin-bottom: clamp(10px, 2vw, 20px);
             text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
         }
 
         .winner-emoji {
-            font-size: 120px;
+            font-size: clamp(70px, 10vw, 120px);
             animation: bounce 1s infinite;
+        }
+
+        /* Media Queries voor extra kleine schermen */
+        @media (max-width: 768px) {
+            #topSection {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto;
+            }
+            
+            #mainArea {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -726,7 +744,7 @@
                     <div class="pile-count" id="deckCount">0</div>
                 </div>
                 <div class="card-pile" id="discardPile">
-                    <h4>WEGLEGEN</h4>
+                    <h4>WEGLEGGEN</h4>
                     <div class="pile-visual">📦</div>
                     <div class="pile-count" id="discardCount">0</div>
                 </div>
@@ -740,7 +758,7 @@
             </div>
         </div>
 
-        <!-- 3 Speelvlakken met GESTAPELDE KAARTEN -->
+        <!-- 3 Speelvlakken -->
         <div id="mainArea">
             <div class="playAreaBox" onclick="selectArea(0)">
                 <h3>SPEELVLAK 1</h3>
@@ -953,7 +971,7 @@
             turnIndicator.textContent = isMyTurn ? '🎯 Jouw beurt!' : '⏳ Wachten...';
             turnIndicator.classList.toggle('notYourTurn', !isMyTurn);
 
-            // Play areas - GESTAPELDE KAARTEN
+            // Play areas
             gameState.playAreas.forEach((area, areaIdx) => {
                 const areaBox = document.querySelector(`[onclick="selectArea(${areaIdx})"]`);
                 areaBox.classList.toggle('blocked', area.blocked);
@@ -968,14 +986,15 @@
                     if (specSlot) specSlot.innerHTML = `Spec ${spec + 1}`;
                 }
 
-                // Render GESTAPELDE kaarten
+                // Render GESTAPELDE kaarten - PRIVACY FIX
                 area.cards.forEach((card, cardIdx) => {
                     const cardEl = document.createElement('div');
                     cardEl.className = 'stacked-card';
                     cardEl.setAttribute('data-position', cardIdx + 1);
                     
+                    // ALLEEN EIGEN KAARTEN TONEN
                     const isMyCard = card.owner === myPlayerId;
-                    const imageNum = isMyCard ? card.imageNum : 55;
+                    const imageNum = isMyCard ? card.imageNum : 55;  // 55 = achterkant
                     
                     cardEl.innerHTML = `
                         <div class="card-number">${cardIdx + 1}</div>
@@ -985,13 +1004,14 @@
                     stackedContainer.appendChild(cardEl);
                 });
 
-                // Render special cards
+                // Render special cards - PRIVACY FIX
                 area.specialCards.forEach((card, specIdx) => {
                     if (specIdx < 2) {
                         const specSlot = document.getElementById(`area${areaIdx}spec${specIdx}`);
                         if (specSlot) {
+                            // ALLEEN EIGEN KAARTEN TONEN
                             const isMyCard = card.owner === myPlayerId;
-                            const imageNum = isMyCard ? card.imageNum : 55;
+                            const imageNum = isMyCard ? card.imageNum : 55;  // 55 = achterkant
                             
                             const specCard = document.createElement('div');
                             specCard.className = 'spec-card';
