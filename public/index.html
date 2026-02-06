@@ -77,27 +77,27 @@
             font-weight: bold;
         }
 
-        /* Game Container */
+        /* Game Container - Exacte layout zoals afbeelding */
         #gameContainer {
             display: none !important;
             height: 100vh;
-            padding: 10px;
-            grid-template-rows: 140px 1fr 175px;
-            gap: 10px;
+            padding: 8px;
+            grid-template-rows: 180px 1fr 200px;
+            gap: 8px;
         }
 
         #gameContainer.active {
             display: grid !important;
         }
 
-        /* Top Bar */
-        #topBar {
+        /* Top Section - NIEUWE LAYOUT */
+        #topSection {
             display: grid;
-            grid-template-columns: 400px 1fr 280px;
-            gap: 10px;
+            grid-template-columns: 280px 140px 1fr 280px;
+            gap: 8px;
         }
 
-        /* Safari Route */
+        /* Safari Route Links */
         #safariRouteBox {
             background: rgba(245, 222, 179, 0.95);
             border: 4px solid #8B4513;
@@ -109,17 +109,16 @@
         #safariRouteBox h3 {
             text-align: center;
             color: #2E5C8A;
-            font-size: 15px;
+            font-size: 14px;
             margin-bottom: 6px;
             font-weight: bold;
-            text-transform: uppercase;
         }
 
         .route-player {
             display: flex;
             align-items: center;
-            gap: 5px;
-            padding: 5px 8px;
+            gap: 4px;
+            padding: 5px 6px;
             background: rgba(255, 255, 255, 0.85);
             border-radius: 8px;
             border: 3px solid #654321;
@@ -133,21 +132,22 @@
         }
 
         .route-label {
-            min-width: 65px;
+            min-width: 50px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
             color: #654321;
         }
 
         .safari-route {
             display: flex;
-            gap: 3px;
+            gap: 2px;
             flex: 1;
+            flex-wrap: wrap;
         }
 
         .route-step {
-            width: 26px;
-            height: 26px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             background: #D3D3D3;
             border: 2px solid #999;
@@ -155,7 +155,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 11px;
+            font-size: 10px;
             color: #666;
             transition: all 0.3s;
         }
@@ -164,72 +164,85 @@
             background: linear-gradient(135deg, #32CD32, #228B22);
             border-color: #1a6b1a;
             color: white;
-            transform: scale(1.05);
         }
 
         .route-step.current {
             background: linear-gradient(135deg, #FFD700, #FFA500);
             border-color: #FF8C00;
             color: #654321;
-            transform: scale(1.15);
-            box-shadow: 0 0 10px rgba(255,215,0,0.8);
+            transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(255,215,0,0.8);
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1.15); }
-            50% { transform: scale(1.25); }
+            0%, 100% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
         }
 
-        /* Center */
-        #centerBoxes {
-            display: grid;
-            grid-template-rows: 1fr 1fr;
+        /* Deck & Discard (Links naast Safari Route) */
+        #deckDiscardBox {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
         }
 
-        #discardBox {
-            background: url('/images/boards/Weglegstapel-achtergrond.jpg') center/cover;
+        .card-pile {
+            flex: 1;
+            background: rgba(245, 222, 179, 0.95);
             border: 4px solid #8B4513;
             border-radius: 12px;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
             position: relative;
         }
 
-        #discardBox::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 250, 240, 0.3);
-            border-radius: 8px;
-            pointer-events: none;
+        .card-pile:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.5);
         }
 
-        #discardBox h3 {
-            position: relative;
+        .card-pile h4 {
+            font-size: 11px;
             color: #654321;
-            font-size: 13px;
-            margin-bottom: 3px;
-            text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
-            font-weight: bold;
+            margin-bottom: 4px;
         }
 
-        #discardCount {
-            position: relative;
-            font-size: 32px;
-            color: #8B4513;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.7);
+        .pile-visual {
+            width: 60px;
+            height: 85px;
+            margin: 0 auto;
+            border: 3px solid #333;
+            border-radius: 6px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
+        .pile-count {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #FFD700;
+            color: #654321;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            border: 2px solid #8B4513;
+        }
+
+        /* Big Five Indicator (Midden) */
         #bigFiveBox {
             background: url('/images/boards/Big-Five-indicator-strip.jpg') center/contain no-repeat;
             background-size: 100% 100%;
@@ -237,7 +250,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
-        /* Right */
+        /* Right: Room + Turn */
         #rightBoxes {
             display: flex;
             flex-direction: column;
@@ -246,7 +259,7 @@
 
         #roomCode {
             background: linear-gradient(135deg, #8B4513, #A0522D);
-            padding: 10px;
+            padding: 12px;
             border-radius: 12px;
             font-size: 18px;
             font-weight: bold;
@@ -278,11 +291,11 @@
             border-color: #8B0000;
         }
 
-        /* Main Area - ALLEEN SPEELVLAKKEN */
+        /* Main Area - 3 Speelvlakken */
         #mainArea {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
         .playAreaBox {
@@ -303,30 +316,35 @@
             border-color: #228B22;
         }
 
+        .playAreaBox.blocked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: #DC143C;
+        }
+
         .playAreaBox h3 {
             background: rgba(139, 69, 19, 0.9);
             color: white;
             text-align: center;
-            padding: 8px;
-            font-size: 15px;
+            padding: 6px;
+            font-size: 14px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-weight: bold;
         }
 
         .playAreaContent {
             flex: 1;
-            padding: 10px;
+            padding: 8px;
             background: rgba(255, 250, 240, 0.75);
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
-        /* Speciale kaart slots (2 per speelvlak) */
         .spec-slots {
             display: flex;
-            gap: 8px;
-            height: 70px;
+            gap: 6px;
+            height: 60px;
         }
 
         .spec-slot {
@@ -337,51 +355,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 10px;
             color: #4682B4;
             font-weight: bold;
+            overflow: hidden;
         }
 
-        /* Normale posities (5 genummerd) */
         .positions {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
             background: rgba(255, 250, 205, 0.85);
-            border-radius: 10px;
-            padding: 6px;
+            border-radius: 8px;
+            padding: 5px;
         }
 
         .pos-row {
             flex: 1;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.95);
             border: 2px solid #DEB887;
-            border-radius: 6px;
-            padding: 3px 8px;
+            border-radius: 5px;
+            padding: 2px 6px;
         }
 
         .pos-num {
-            min-width: 22px;
+            min-width: 18px;
             font-weight: bold;
             color: #8B4513;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .pos-slot {
             flex: 1;
-            min-height: 38px;
+            min-height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .mini-card {
-            width: 50px;
-            height: 70px;
+            width: 48px;
+            height: 67px;
             border: 2px solid #333;
             border-radius: 5px;
             overflow: hidden;
@@ -408,22 +426,22 @@
             color: #654321;
             text-align: center;
             margin-bottom: 8px;
-            font-size: 18px;
+            font-size: 16px;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
 
         #hand {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
-            height: calc(100% - 35px);
+            height: calc(100% - 30px);
             align-items: center;
             flex-wrap: wrap;
         }
 
         .card {
-            width: 100px;
-            height: 140px;
+            width: 95px;
+            height: 133px;
             border: 3px solid #333;
             border-radius: 8px;
             cursor: pointer;
@@ -452,6 +470,31 @@
             border-width: 5px;
             box-shadow: 0 18px 40px rgba(255, 215, 0, 0.8);
             z-index: 200;
+        }
+
+        /* Special Effect Notification */
+        #specialEffectNotification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 30px 50px;
+            border-radius: 20px;
+            border: 5px solid #FF8C00;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+            font-size: 24px;
+            font-weight: bold;
+            color: #654321;
+            text-align: center;
+            z-index: 9999;
+            display: none;
+            animation: popIn 0.3s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         /* Winner Modal */
@@ -510,10 +553,11 @@
 
     <!-- Game -->
     <div id="gameContainer">
-        <!-- Top -->
-        <div id="topBar">
+        <!-- Top Section -->
+        <div id="topSection">
+            <!-- Safari Route -->
             <div id="safariRouteBox">
-                <h3>Safari Route</h3>
+                <h3>SAFARI ROUTE</h3>
                 <div class="route-player" id="routePlayer0">
                     <div class="route-label" id="routeLabel0">Speler 1</div>
                     <div class="safari-route" id="safariRoute0"></div>
@@ -524,21 +568,31 @@
                 </div>
             </div>
 
-            <div id="centerBoxes">
-                <div id="discardBox">
-                    <h3>📦 WEGLEGSTAPEL</h3>
-                    <div id="discardCount">0</div>
+            <!-- Deck & Discard Piles -->
+            <div id="deckDiscardBox">
+                <div class="card-pile" id="deckPile" onclick="drawFromDeck()">
+                    <h4>DECK</h4>
+                    <div class="pile-visual">🎴</div>
+                    <div class="pile-count" id="deckCount">0</div>
                 </div>
-                <div id="bigFiveBox"></div>
+                <div class="card-pile" id="discardPile" onclick="showDiscardPile()">
+                    <h4>WEGLEGEN</h4>
+                    <div class="pile-visual">📦</div>
+                    <div class="pile-count" id="discardCount">0</div>
+                </div>
             </div>
 
+            <!-- Big Five Indicator -->
+            <div id="bigFiveBox"></div>
+
+            <!-- Room + Turn -->
             <div id="rightBoxes">
                 <div id="roomCode">ROOM: ----</div>
                 <div id="turnIndicator">⏳ Wachten...</div>
             </div>
         </div>
 
-        <!-- 3 Speelvlakken (zonder linker kolom) -->
+        <!-- 3 Speelvlakken -->
         <div id="mainArea">
             <div class="playAreaBox" onclick="selectArea(0)">
                 <h3>SPEELVLAK 1</h3>
@@ -580,6 +634,9 @@
             <div id="hand"></div>
         </div>
     </div>
+
+    <!-- Special Effect Notification -->
+    <div id="specialEffectNotification"></div>
 
     <!-- Winner -->
     <div id="winnerModal">
@@ -640,9 +697,28 @@
             setTimeout(() => errorEl.style.display = 'none', 3000);
         }
 
+        function showSpecialEffect(message) {
+            const notification = document.getElementById('specialEffectNotification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
         function showGameScreen() {
             document.getElementById('lobby').style.display = 'none';
             document.getElementById('gameContainer').classList.add('active');
+        }
+
+        function drawFromDeck() {
+            // Placeholder voor deck functionaliteit
+            showError('Trek kaart functionaliteit komt binnenkort');
+        }
+
+        function showDiscardPile() {
+            // Placeholder voor discard pile weergave
+            console.log('Discard pile:', gameState?.discardPile);
         }
 
         socket.on('roomCreated', ({ roomId }) => {
@@ -657,10 +733,14 @@
             document.getElementById('roomCode').textContent = `ROOM: ${roomId}`;
         });
 
-        socket.on('gameStateUpdated', ({ gameState: state, yourPlayerId }) => {
+        socket.on('gameStateUpdated', ({ gameState: state, yourPlayerId, specialEffect }) => {
             gameState = state;
             myPlayerId = yourPlayerId;
             renderGame();
+            
+            if (specialEffect) {
+                showSpecialEffect(specialEffect);
+            }
             
             if (gameState.winner !== null) {
                 showWinner();
@@ -691,6 +771,14 @@
                 routePlayer.classList.toggle('active', idx === gameState.currentPlayer);
             });
 
+            // Deck count (als beschikbaar)
+            if (gameState.deckCount !== undefined) {
+                document.getElementById('deckCount').textContent = gameState.deckCount;
+            }
+
+            // Discard count
+            document.getElementById('discardCount').textContent = gameState.discardPile.length;
+
             // Turn
             const isMyTurn = gameState.currentPlayer === myPlayerId;
             const turnIndicator = document.getElementById('turnIndicator');
@@ -699,19 +787,22 @@
 
             // Play areas
             gameState.playAreas.forEach((area, areaIdx) => {
-                // Clear posities
+                const areaBox = document.querySelector(`[onclick="selectArea(${areaIdx})"]`);
+                areaBox.classList.toggle('blocked', area.blocked);
+
+                // Clear positions
                 for (let pos = 1; pos <= 5; pos++) {
                     const slot = document.getElementById(`area${areaIdx}pos${pos}`);
                     if (slot) slot.innerHTML = '';
                 }
                 
-                // Clear speciale slots
+                // Clear special slots
                 for (let spec = 0; spec < 2; spec++) {
                     const specSlot = document.getElementById(`area${areaIdx}spec${spec}`);
                     if (specSlot) specSlot.innerHTML = `Spec ${spec + 1}`;
                 }
 
-                // Render normale kaarten (posities 1-5)
+                // Render cards
                 area.cards.forEach((card, cardIdx) => {
                     const position = cardIdx + 1;
                     if (position <= 5) {
@@ -725,7 +816,7 @@
                     }
                 });
 
-                // Render speciale kaarten
+                // Render special cards
                 area.specialCards.forEach((card, specIdx) => {
                     if (specIdx < 2) {
                         const specSlot = document.getElementById(`area${areaIdx}spec${specIdx}`);
@@ -741,9 +832,6 @@
                     }
                 });
             });
-
-            // Discard
-            document.getElementById('discardCount').textContent = gameState.discardPile.length;
 
             // Hand
             const myPlayer = gameState.players[myPlayerId];
