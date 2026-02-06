@@ -165,7 +165,7 @@ class BigFiveGame {
             return { 
                 success: true, 
                 skipTurn: true, 
-                specialEffect: `❄️ Je bent bevroren! Beurt overgeslagen.` 
+                specialEffect: `❄️ ${player.name} is bevroren! Beurt overgeslagen.` 
             };
         }
 
@@ -194,8 +194,10 @@ class BigFiveGame {
                         const stolenIndex = Math.floor(Math.random() * opponent.hand.length);
                         const stolenCard = opponent.hand.splice(stolenIndex, 1)[0];
                         player.hand.push(stolenCard);
-                        specialEffect = `🐊 KROKODIL: Je hebt een kaart gestolen van ${opponent.name}!`;
-                        console.log(`🐊 ${player.name} steelt kaart van ${opponent.name}`);
+                        const cardName = stolenCard.type === 'bigfive' ? stolenCard.animal : 
+                                        stolenCard.type === 'special' ? stolenCard.special : 'COMBO';
+                        specialEffect = `🐊 KROKODIL: ${player.name} steelt ${cardName} van ${opponent.name}!`;
+                        console.log(`🐊 ${player.name} steelt ${cardName} van ${opponent.name}`);
                     } else {
                         specialEffect = `🐊 KROKODIL: ${opponent.name} heeft geen kaarten meer!`;
                     }
@@ -207,7 +209,7 @@ class BigFiveGame {
                         player.hand.push(salvaged);
                         const cardName = salvaged.type === 'bigfive' ? salvaged.animal : 
                                         salvaged.type === 'special' ? salvaged.special : 'COMBO';
-                        specialEffect = `🦅 AASGIER: Je hebt ${cardName} teruggehaald uit de weglegstapel!`;
+                        specialEffect = `🦅 AASGIER: ${player.name} haalt ${cardName} terug uit de weglegstapel!`;
                         console.log(`🦅 ${player.name} pakt ${cardName} uit discard pile`);
                     } else {
                         specialEffect = `🦅 AASGIER: Weglegstapel is leeg!`;
@@ -396,7 +398,7 @@ class BigFiveGame {
         const completed = hasAllBigFive && area.cards.length > 0;
 
         if (completed) {
-            console.log(`✅ Big Five compleet! Speler ${playerIndex} wint de punten!`);
+            console.log(`✅ Big Five compleet! Speler ${playerIndex} (${this.players[playerIndex].name}) wint de punten!`);
             console.log(`   Dieren in speelvlak: ${Array.from(animals).join(', ')}`);
         } else if (animals.size > 0) {
             console.log(`📊 Speelvlak ${areaId + 1} heeft ${animals.size}/5 dieren: ${Array.from(animals).join(', ')}`);
@@ -568,7 +570,7 @@ server.listen(PORT, () => {
     console.log(`🌐 Local URL: http://localhost:${PORT}`);
     console.log(`${'='.repeat(70)}\n`);
     
-    console.log(`✨ CORRECTE SPELREGELS:\n`);
+    console.log(`✨ SPELREGELS:\n`);
     console.log(`📋 BIG FIVE SCORING:`);
     console.log(`   • ALLE kaarten in speelvlak tellen mee (van beide spelers)`);
     console.log(`   • Jouw 3 kaarten + tegenstander's 2 kaarten = JIJ wint!`);
@@ -586,10 +588,13 @@ server.listen(PORT, () => {
     console.log(`   🐻‍❄️ IJSBEER - Bevries tegenstander (skip beurt)`);
     console.log(`   🔭 BIG FIVE SPOTTER - Completeer bij 4 dieren\n`);
     
-    console.log(`🔒 PRIVACY:`);
-    console.log(`   • Jouw kaarten zijn zichtbaar (voorkant)`);
-    console.log(`   • Tegenstander's kaarten tonen achterkant (55)`);
-    console.log(`   • Owner tracking voor bonussen (Zebra, Kameleon, etc.)\n`);
+    console.log(`🔧 FIXES:`);
+    console.log(`   ✅ Kaarten onderaan 160x224px - volledig leesbaar`);
+    console.log(`   ✅ Horizontale scroll - geen overlap`);
+    console.log(`   ✅ Win counter met localStorage tracking`);
+    console.log(`   ✅ Game freeze fix na Big Five modal`);
+    console.log(`   ✅ Kleinere deck/wegleggen vakken`);
+    console.log(`   ✅ Compacte layout bovenaan\n`);
     
     console.log(`${'='.repeat(70)}\n`);
 });
