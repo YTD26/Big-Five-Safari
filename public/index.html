@@ -82,7 +82,7 @@
             display: none !important;
             height: 100vh;
             padding: 8px;
-            grid-template-rows: 160px 1fr 240px;
+            grid-template-rows: 140px 1fr 260px;
             gap: 8px;
         }
 
@@ -93,7 +93,7 @@
         /* Top Section */
         #topSection {
             display: grid;
-            grid-template-columns: 240px 120px 1fr 240px;
+            grid-template-columns: 220px 110px 1fr 220px;
             gap: 8px;
         }
 
@@ -109,8 +109,8 @@
         #safariRouteBox h3 {
             text-align: center;
             color: #2E5C8A;
-            font-size: 12px;
-            margin-bottom: 5px;
+            font-size: 11px;
+            margin-bottom: 4px;
             font-weight: bold;
         }
 
@@ -118,11 +118,11 @@
             display: flex;
             align-items: center;
             gap: 3px;
-            padding: 4px 5px;
+            padding: 3px 4px;
             background: rgba(255, 255, 255, 0.85);
             border-radius: 6px;
             border: 2px solid #654321;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .route-player.active {
@@ -132,9 +132,9 @@
         }
 
         .route-label {
-            min-width: 40px;
+            min-width: 35px;
             font-weight: bold;
-            font-size: 10px;
+            font-size: 9px;
             color: #654321;
         }
 
@@ -146,8 +146,8 @@
         }
 
         .route-step {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             background: #D3D3D3;
             border: 2px solid #999;
@@ -155,7 +155,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 9px;
+            font-size: 8px;
             color: #666;
             transition: all 0.3s;
         }
@@ -184,7 +184,7 @@
         #deckDiscardBox {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
         }
 
         .card-pile {
@@ -192,7 +192,7 @@
             background: rgba(245, 222, 179, 0.95);
             border: 3px solid #8B4513;
             border-radius: 10px;
-            padding: 6px;
+            padding: 5px;
             text-align: center;
             box-shadow: 0 3px 10px rgba(0,0,0,0.4);
             cursor: pointer;
@@ -205,14 +205,14 @@
         }
 
         .card-pile h4 {
-            font-size: 10px;
+            font-size: 9px;
             color: #654321;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .pile-visual {
-            width: 50px;
-            height: 70px;
+            width: 45px;
+            height: 63px;
             margin: 0 auto;
             border: 2px solid #333;
             border-radius: 5px;
@@ -220,23 +220,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .pile-count {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 4px;
+            right: 4px;
             background: #FFD700;
             color: #654321;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             border: 2px solid #8B4513;
         }
@@ -253,14 +253,14 @@
         #rightBoxes {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
         }
 
         #roomCode {
             background: linear-gradient(135deg, #8B4513, #A0522D);
-            padding: 10px;
+            padding: 8px;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             color: white;
             border: 3px solid #FFD700;
@@ -271,11 +271,11 @@
 
         #turnIndicator {
             flex: 1;
-            padding: 8px;
+            padding: 6px;
             background: linear-gradient(135deg, #228B22, #32CD32);
             color: white;
             border-radius: 10px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -325,8 +325,8 @@
             background: rgba(139, 69, 19, 0.9);
             color: white;
             text-align: center;
-            padding: 5px;
-            font-size: 13px;
+            padding: 4px;
+            font-size: 12px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             font-weight: bold;
         }
@@ -340,171 +340,183 @@
             gap: 6px;
         }
 
-        /* Speciale kaarten bovenaan - GEFIXTE VERSIE */
+        /* Speciale kaarten bovenaan - HORIZONTAAL GESTAPELD */
         .spec-slots {
             display: flex;
-            gap: 8px;
-            height: 90px;
+            gap: 0;
+            height: 80px;
             justify-content: center;
             padding: 5px 0;
+            position: relative;
         }
 
         .spec-slot {
-            width: 110px;
+            width: 100px;
+            height: 70px;
             background: rgba(173, 216, 230, 0.7);
-            border: 3px dashed #4682B4;
+            border: 2px dashed #4682B4;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 9px;
             color: #4682B4;
             font-weight: bold;
-            overflow: hidden;
+            overflow: visible;
             position: relative;
+        }
+
+        .spec-slot .spec-card {
+            width: 100px;
+            height: 140px;
+            border: 3px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            cursor: pointer;
             transition: all 0.3s;
+            position: absolute;
+            top: -10px;
         }
 
-        .spec-slot:hover {
-            transform: scale(1.05);
-            border-color: #2E5C8A;
+        .spec-slot .spec-card:hover {
+            transform: translateY(-15px) scale(1.15);
+            z-index: 100;
         }
 
-        .spec-slot img {
+        .spec-slot .spec-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .spec-slot .spec-number {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            background: rgba(70, 130, 180, 0.95);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: bold;
-            border: 2px solid #FFD700;
-            z-index: 10;
-        }
-
-        /* PIRAMIDE LAYOUT voor kaarten - GEFIXTE VERSIE */
-        .pyramid-layout {
+        /* GESTAPELDE LAYOUT voor kaarten - ZOALS JOUW AFBEELDING */
+        .stacked-layout {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 4px;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             padding: 5px;
+            position: relative;
+            min-height: 200px;
         }
 
-        .pyramid-row {
+        .stacked-cards-container {
+            position: relative;
+            width: 120px;
+            height: 100%;
             display: flex;
-            gap: 8px;
-            justify-content: center;
+            flex-direction: column-reverse;
             align-items: center;
         }
 
-        .pyramid-row.row-4 {
-            width: 100%;
-            justify-content: space-evenly;
-        }
-
-        .pyramid-row.row-3,
-        .pyramid-row.row-2,
-        .pyramid-row.row-1 {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .pyramid-card {
-            width: 110px;
-            height: 154px;
+        .stacked-card {
+            width: 120px;
+            height: 168px;
             border: 3px solid #333;
             border-radius: 8px;
             overflow: hidden;
             background: white;
             box-shadow: 0 3px 8px rgba(0,0,0,0.4);
-            position: relative;
-            transition: all 0.3s;
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .pyramid-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        /* Positionering van gestapelde kaarten (van onder naar boven) */
+        .stacked-card[data-position="1"] {
+            bottom: 0;
+            z-index: 5;
         }
 
-        .pyramid-card.empty {
-            background: rgba(255, 255, 255, 0.3);
-            border: 3px dashed #999;
+        .stacked-card[data-position="2"] {
+            bottom: 35px;
+            z-index: 4;
         }
 
-        .pyramid-card img {
+        .stacked-card[data-position="3"] {
+            bottom: 70px;
+            z-index: 3;
+        }
+
+        .stacked-card[data-position="4"] {
+            bottom: 105px;
+            z-index: 2;
+        }
+
+        .stacked-card[data-position="5"] {
+            bottom: 140px;
+            z-index: 1;
+        }
+
+        .stacked-card:hover {
+            transform: translateY(-20px) scale(1.1);
+            z-index: 100 !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .stacked-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none;
         }
 
-        .pyramid-card .card-number {
+        .stacked-card .card-number {
             position: absolute;
-            top: 4px;
-            left: 4px;
+            top: 5px;
+            left: 5px;
             background: rgba(139, 69, 19, 0.95);
             color: white;
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             border: 2px solid #FFD700;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
             z-index: 10;
         }
 
-        /* Hand */
+        /* Hand - VEEL GROTER */
         #handArea {
             background: linear-gradient(135deg, rgba(245, 222, 179, 0.98), rgba(222, 184, 135, 0.98));
             border: 5px solid #8B4513;
             border-radius: 15px;
-            padding: 12px;
+            padding: 15px;
             box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
         }
 
         #handArea h2 {
             color: #654321;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 16px;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
 
         #hand {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
-            height: calc(100% - 32px);
+            height: calc(100% - 36px);
             align-items: center;
             flex-wrap: wrap;
         }
 
         .card {
-            width: 120px;
-            height: 168px;
+            width: 140px;  /* GROTER */
+            height: 196px;  /* GROTER */
             border: 3px solid #333;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             overflow: hidden;
             background: white;
         }
@@ -517,16 +529,16 @@
         }
 
         .card:hover {
-            transform: translateY(-25px) scale(1.15);
+            transform: translateY(-30px) scale(1.15);
             z-index: 100;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
         .card.selected {
-            transform: translateY(-30px) scale(1.2);
+            transform: translateY(-35px) scale(1.2);
             border-color: #FFD700;
             border-width: 5px;
-            box-shadow: 0 18px 40px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 20px 45px rgba(255, 215, 0, 0.9);
             z-index: 200;
         }
 
@@ -728,38 +740,44 @@
             </div>
         </div>
 
-        <!-- 3 Speelvlakken -->
+        <!-- 3 Speelvlakken met GESTAPELDE KAARTEN -->
         <div id="mainArea">
             <div class="playAreaBox" onclick="selectArea(0)">
                 <h3>SPEELVLAK 1</h3>
                 <div class="playAreaContent">
-                    <div class="spec-slots">
+                    <div class="spec-slots" id="area0specSlots">
                         <div class="spec-slot" id="area0spec0">Spec 1</div>
                         <div class="spec-slot" id="area0spec1">Spec 2</div>
                     </div>
-                    <div class="pyramid-layout" id="area0pyramid"></div>
+                    <div class="stacked-layout">
+                        <div class="stacked-cards-container" id="area0stacked"></div>
+                    </div>
                 </div>
             </div>
 
             <div class="playAreaBox" onclick="selectArea(1)">
                 <h3>SPEELVLAK 2</h3>
                 <div class="playAreaContent">
-                    <div class="spec-slots">
+                    <div class="spec-slots" id="area1specSlots">
                         <div class="spec-slot" id="area1spec0">Spec 1</div>
                         <div class="spec-slot" id="area1spec1">Spec 2</div>
                     </div>
-                    <div class="pyramid-layout" id="area1pyramid"></div>
+                    <div class="stacked-layout">
+                        <div class="stacked-cards-container" id="area1stacked"></div>
+                    </div>
                 </div>
             </div>
 
             <div class="playAreaBox" onclick="selectArea(2)">
                 <h3>SPEELVLAK 3</h3>
                 <div class="playAreaContent">
-                    <div class="spec-slots">
+                    <div class="spec-slots" id="area2specSlots">
                         <div class="spec-slot" id="area2spec0">Spec 1</div>
                         <div class="spec-slot" id="area2spec1">Spec 2</div>
                     </div>
-                    <div class="pyramid-layout" id="area2pyramid"></div>
+                    <div class="stacked-layout">
+                        <div class="stacked-cards-container" id="area2stacked"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -802,38 +820,6 @@
         let myPlayerId = null;
         let currentRoomId = null;
         let selectedCard = null;
-
-        // Initialize pyramid layouts
-        for (let areaId = 0; areaId < 3; areaId++) {
-            const pyramid = document.getElementById(`area${areaId}pyramid`);
-            
-            // Row 4: 2 kaarten (bovenaan)
-            const row4 = document.createElement('div');
-            row4.className = 'pyramid-row row-4';
-            row4.innerHTML = `
-                <div class="pyramid-card empty" id="area${areaId}card4L"><div class="card-number">5</div></div>
-                <div class="pyramid-card empty" id="area${areaId}card4R"><div class="card-number">4</div></div>
-            `;
-            pyramid.appendChild(row4);
-            
-            // Row 3: 1 kaart
-            const row3 = document.createElement('div');
-            row3.className = 'pyramid-row row-3';
-            row3.innerHTML = `<div class="pyramid-card empty" id="area${areaId}card3"><div class="card-number">3</div></div>`;
-            pyramid.appendChild(row3);
-            
-            // Row 2: 1 kaart
-            const row2 = document.createElement('div');
-            row2.className = 'pyramid-row row-2';
-            row2.innerHTML = `<div class="pyramid-card empty" id="area${areaId}card2"><div class="card-number">2</div></div>`;
-            pyramid.appendChild(row2);
-            
-            // Row 1: 1 kaart (onderaan)
-            const row1 = document.createElement('div');
-            row1.className = 'pyramid-row row-1';
-            row1.innerHTML = `<div class="pyramid-card empty" id="area${areaId}card1"><div class="card-number">1</div></div>`;
-            pyramid.appendChild(row1);
-        }
 
         function createRoom() {
             const playerName = document.getElementById('playerName').value.trim();
@@ -967,23 +953,14 @@
             turnIndicator.textContent = isMyTurn ? '🎯 Jouw beurt!' : '⏳ Wachten...';
             turnIndicator.classList.toggle('notYourTurn', !isMyTurn);
 
-            // Play areas - PIRAMIDE
+            // Play areas - GESTAPELDE KAARTEN
             gameState.playAreas.forEach((area, areaIdx) => {
                 const areaBox = document.querySelector(`[onclick="selectArea(${areaIdx})"]`);
                 areaBox.classList.toggle('blocked', area.blocked);
 
-                // Clear pyramid
-                const cardPositions = ['card1', 'card2', 'card3', 'card4L', 'card4R'];
-                cardPositions.forEach(pos => {
-                    const cardEl = document.getElementById(`area${areaIdx}${pos}`);
-                    if (cardEl) {
-                        cardEl.className = 'pyramid-card empty';
-                        const numberEl = cardEl.querySelector('.card-number');
-                        if (numberEl) {
-                            cardEl.innerHTML = numberEl.outerHTML;
-                        }
-                    }
-                });
+                // Clear stacked cards
+                const stackedContainer = document.getElementById(`area${areaIdx}stacked`);
+                stackedContainer.innerHTML = '';
                 
                 // Clear special slots
                 for (let spec = 0; spec < 2; spec++) {
@@ -991,21 +968,21 @@
                     if (specSlot) specSlot.innerHTML = `Spec ${spec + 1}`;
                 }
 
-                // Render pyramid cards
-                const pyramidMapping = ['card1', 'card2', 'card3', 'card4L', 'card4R'];
+                // Render GESTAPELDE kaarten
                 area.cards.forEach((card, cardIdx) => {
-                    if (cardIdx < 5) {
-                        const cardEl = document.getElementById(`area${areaIdx}${pyramidMapping[cardIdx]}`);
-                        if (cardEl) {
-                            cardEl.className = 'pyramid-card';
-                            const isMyCard = card.owner === myPlayerId;
-                            const imageNum = isMyCard ? card.imageNum : 55;
-                            cardEl.innerHTML = `
-                                <div class="card-number">${cardIdx + 1}</div>
-                                <img src="/images/cards/${imageNum}.png" alt="kaart">
-                            `;
-                        }
-                    }
+                    const cardEl = document.createElement('div');
+                    cardEl.className = 'stacked-card';
+                    cardEl.setAttribute('data-position', cardIdx + 1);
+                    
+                    const isMyCard = card.owner === myPlayerId;
+                    const imageNum = isMyCard ? card.imageNum : 55;
+                    
+                    cardEl.innerHTML = `
+                        <div class="card-number">${cardIdx + 1}</div>
+                        <img src="/images/cards/${imageNum}.png" alt="kaart">
+                    `;
+                    
+                    stackedContainer.appendChild(cardEl);
                 });
 
                 // Render special cards
@@ -1015,10 +992,13 @@
                         if (specSlot) {
                             const isMyCard = card.owner === myPlayerId;
                             const imageNum = isMyCard ? card.imageNum : 55;
-                            specSlot.innerHTML = `
-                                <img src="/images/cards/${imageNum}.png" alt="special">
-                                <div class="spec-number">${specIdx + 1}</div>
-                            `;
+                            
+                            const specCard = document.createElement('div');
+                            specCard.className = 'spec-card';
+                            specCard.innerHTML = `<img src="/images/cards/${imageNum}.png" alt="special">`;
+                            
+                            specSlot.innerHTML = '';
+                            specSlot.appendChild(specCard);
                         }
                     }
                 });
