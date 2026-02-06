@@ -290,7 +290,7 @@
             border-color: #8B0000;
         }
 
-        /* Main Area - NIEUWE PIRAMIDE LAYOUT */
+        /* Main Area */
         #mainArea {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -340,78 +340,110 @@
             gap: 6px;
         }
 
-        /* Speciale kaarten bovenaan */
+        /* Speciale kaarten bovenaan - GEFIXTE VERSIE */
         .spec-slots {
             display: flex;
-            gap: 6px;
-            height: 75px;
+            gap: 8px;
+            height: 90px;
             justify-content: center;
+            padding: 5px 0;
         }
 
         .spec-slot {
-            width: 80px;
+            width: 110px;
             background: rgba(173, 216, 230, 0.7);
-            border: 2px dashed #4682B4;
-            border-radius: 6px;
+            border: 3px dashed #4682B4;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 9px;
+            font-size: 10px;
             color: #4682B4;
             font-weight: bold;
             overflow: hidden;
+            position: relative;
+            transition: all 0.3s;
         }
 
-        /* PIRAMIDE LAYOUT voor kaarten */
+        .spec-slot:hover {
+            transform: scale(1.05);
+            border-color: #2E5C8A;
+        }
+
+        .spec-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .spec-slot .spec-number {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(70, 130, 180, 0.95);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            border: 2px solid #FFD700;
+            z-index: 10;
+        }
+
+        /* PIRAMIDE LAYOUT voor kaarten - GEFIXTE VERSIE */
         .pyramid-layout {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             align-items: center;
             justify-content: center;
+            padding: 5px;
         }
 
         .pyramid-row {
             display: flex;
-            gap: 6px;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pyramid-row.row-4 {
+            width: 100%;
+            justify-content: space-evenly;
+        }
+
+        .pyramid-row.row-3,
+        .pyramid-row.row-2,
+        .pyramid-row.row-1 {
+            width: 100%;
             justify-content: center;
         }
 
-        /* Row 4: 2 kaarten */
-        .pyramid-row.row-4 {
-            margin-left: 0;
-        }
-
-        /* Row 3: 1 kaart (midden) */
-        .pyramid-row.row-3 {
-            margin-left: 0;
-        }
-
-        /* Row 2: 1 kaart */
-        .pyramid-row.row-2 {
-            margin-left: 0;
-        }
-
-        /* Row 1: 1 kaart (onderaan) */
-        .pyramid-row.row-1 {
-            margin-left: 0;
-        }
-
         .pyramid-card {
-            width: 80px;
-            height: 112px;
-            border: 2px solid #333;
-            border-radius: 6px;
+            width: 110px;
+            height: 154px;
+            border: 3px solid #333;
+            border-radius: 8px;
             overflow: hidden;
             background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
             position: relative;
+            transition: all 0.3s;
+        }
+
+        .pyramid-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .pyramid-card.empty {
             background: rgba(255, 255, 255, 0.3);
-            border: 2px dashed #999;
+            border: 3px dashed #999;
         }
 
         .pyramid-card img {
@@ -422,22 +454,24 @@
 
         .pyramid-card .card-number {
             position: absolute;
-            top: 2px;
-            left: 2px;
-            background: rgba(139, 69, 19, 0.9);
+            top: 4px;
+            left: 4px;
+            background: rgba(139, 69, 19, 0.95);
             color: white;
-            width: 18px;
-            height: 18px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: bold;
             border: 2px solid #FFD700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
-        /* Hand - GROTERE KAARTEN */
+        /* Hand */
         #handArea {
             background: linear-gradient(135deg, rgba(245, 222, 179, 0.98), rgba(222, 184, 135, 0.98));
             border: 5px solid #8B4513;
@@ -660,7 +694,6 @@
 
     <!-- Game -->
     <div id="gameContainer">
-        <!-- Top Section -->
         <div id="topSection">
             <div id="safariRouteBox">
                 <h3>SAFARI ROUTE</h3>
@@ -695,9 +728,8 @@
             </div>
         </div>
 
-        <!-- 3 Speelvlakken met PIRAMIDE LAYOUT -->
+        <!-- 3 Speelvlakken -->
         <div id="mainArea">
-            <!-- Speelvlak 1 -->
             <div class="playAreaBox" onclick="selectArea(0)">
                 <h3>SPEELVLAK 1</h3>
                 <div class="playAreaContent">
@@ -709,7 +741,6 @@
                 </div>
             </div>
 
-            <!-- Speelvlak 2 -->
             <div class="playAreaBox" onclick="selectArea(1)">
                 <h3>SPEELVLAK 2</h3>
                 <div class="playAreaContent">
@@ -721,7 +752,6 @@
                 </div>
             </div>
 
-            <!-- Speelvlak 3 -->
             <div class="playAreaBox" onclick="selectArea(2)">
                 <h3>SPEELVLAK 3</h3>
                 <div class="playAreaContent">
@@ -741,7 +771,7 @@
         </div>
     </div>
 
-    <!-- Big Five Completion Modal -->
+    <!-- Big Five Modal -->
     <div id="bigFiveModal">
         <div class="bigfive-content">
             <div class="bigfive-emoji">🎉</div>
@@ -786,7 +816,7 @@
             `;
             pyramid.appendChild(row4);
             
-            // Row 3: 1 kaart (midden)
+            // Row 3: 1 kaart
             const row3 = document.createElement('div');
             row3.className = 'pyramid-row row-3';
             row3.innerHTML = `<div class="pyramid-card empty" id="area${areaId}card3"><div class="card-number">3</div></div>`;
@@ -886,7 +916,6 @@
             gameState = state;
             myPlayerId = yourPlayerId;
             
-            // Show Big Five modal FIRST if present
             if (bigFiveData) {
                 showBigFiveModal(bigFiveData.playerName, bigFiveData.cards, bigFiveData.points);
             }
@@ -926,7 +955,7 @@
                 routePlayer.classList.toggle('active', idx === gameState.currentPlayer);
             });
 
-            // Deck & Discard count
+            // Deck & Discard
             if (gameState.deckCount !== undefined) {
                 document.getElementById('deckCount').textContent = gameState.deckCount;
             }
@@ -938,18 +967,21 @@
             turnIndicator.textContent = isMyTurn ? '🎯 Jouw beurt!' : '⏳ Wachten...';
             turnIndicator.classList.toggle('notYourTurn', !isMyTurn);
 
-            // Play areas - PIRAMIDE WEERGAVE
+            // Play areas - PIRAMIDE
             gameState.playAreas.forEach((area, areaIdx) => {
                 const areaBox = document.querySelector(`[onclick="selectArea(${areaIdx})"]`);
                 areaBox.classList.toggle('blocked', area.blocked);
 
-                // Clear pyramid cards
+                // Clear pyramid
                 const cardPositions = ['card1', 'card2', 'card3', 'card4L', 'card4R'];
                 cardPositions.forEach(pos => {
                     const cardEl = document.getElementById(`area${areaIdx}${pos}`);
                     if (cardEl) {
                         cardEl.className = 'pyramid-card empty';
-                        cardEl.innerHTML = cardEl.querySelector('.card-number').outerHTML;
+                        const numberEl = cardEl.querySelector('.card-number');
+                        if (numberEl) {
+                            cardEl.innerHTML = numberEl.outerHTML;
+                        }
                     }
                 });
                 
@@ -959,7 +991,7 @@
                     if (specSlot) specSlot.innerHTML = `Spec ${spec + 1}`;
                 }
 
-                // Render cards in pyramid
+                // Render pyramid cards
                 const pyramidMapping = ['card1', 'card2', 'card3', 'card4L', 'card4R'];
                 area.cards.forEach((card, cardIdx) => {
                     if (cardIdx < 5) {
@@ -983,7 +1015,10 @@
                         if (specSlot) {
                             const isMyCard = card.owner === myPlayerId;
                             const imageNum = isMyCard ? card.imageNum : 55;
-                            specSlot.innerHTML = `<img src="/images/cards/${imageNum}.png" alt="special" style="width:100%;height:100%;object-fit:cover;">`;
+                            specSlot.innerHTML = `
+                                <img src="/images/cards/${imageNum}.png" alt="special">
+                                <div class="spec-number">${specIdx + 1}</div>
+                            `;
                         }
                     }
                 });
