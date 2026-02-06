@@ -14,14 +14,15 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: url('/images/boards/Safari-Route-achtergrond.jpg') center/cover;
+            background: url('/images/boards/Safari-Route-achtergrond.jpg') center/cover fixed;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Lobby Screen */
+        /* Lobby */
         #lobby {
-            background: linear-gradient(135deg, rgba(255, 250, 240, 0.95), rgba(255, 228, 181, 0.95));
+            display: block;
+            background: linear-gradient(135deg, rgba(255, 250, 240, 0.98), rgba(255, 228, 181, 0.98));
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
@@ -29,7 +30,6 @@
             max-width: 500px;
             margin: 10vh auto;
             border: 5px solid #8B4513;
-            backdrop-filter: blur(5px);
         }
 
         #lobby h1 {
@@ -59,6 +59,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
         }
 
         button:hover {
@@ -70,113 +71,100 @@
             color: #DC143C;
             margin-top: 10px;
             display: none;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             padding: 10px;
             border-radius: 5px;
+            font-weight: bold;
         }
 
         /* Game Container */
         #gameContainer {
-            display: none;
+            display: none !important;
             height: 100vh;
             padding: 10px;
-            display: grid;
-            grid-template-rows: auto 1fr auto;
+            grid-template-rows: 140px 1fr 175px;
             gap: 10px;
         }
 
-        /* Top Section */
-        #topSection {
+        #gameContainer.active {
+            display: grid !important;
+        }
+
+        /* Top Bar */
+        #topBar {
             display: grid;
-            grid-template-columns: 400px 1fr 300px;
+            grid-template-columns: 400px 1fr 280px;
             gap: 10px;
-            height: 160px;
         }
 
-        /* Safari Route Board met achtergrond */
-        #safariRouteBoard {
-            background: url('/images/boards/Safari-Route-achtergrond.jpg') center/cover;
-            border: 5px solid #8B4513;
-            border-radius: 15px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-            position: relative;
+        /* Safari Route */
+        #safariRouteBox {
+            background: rgba(245, 222, 179, 0.95);
+            border: 4px solid #8B4513;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
-        #safariRouteBoard::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(245, 222, 179, 0.7);
-            border-radius: 10px;
-            z-index: 0;
-        }
-
-        #safariRouteBoard h3 {
-            position: relative;
-            z-index: 1;
+        #safariRouteBox h3 {
             text-align: center;
             color: #2E5C8A;
-            font-size: 18px;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            font-size: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
         .route-player {
-            position: relative;
-            z-index: 1;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
+            gap: 5px;
+            padding: 5px 8px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 8px;
             border: 3px solid #654321;
+            margin-bottom: 5px;
         }
 
         .route-player.active {
             border-color: #FFD700;
-            background: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            background: rgba(255, 215, 0, 0.25);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
         }
 
         .route-label {
-            min-width: 80px;
+            min-width: 65px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
             color: #654321;
         }
 
         .safari-route {
             display: flex;
-            gap: 5px;
+            gap: 3px;
             flex: 1;
         }
 
         .route-step {
-            width: 30px;
-            height: 30px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             background: #D3D3D3;
-            border: 3px solid #999;
+            border: 2px solid #999;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 11px;
             color: #666;
+            transition: all 0.3s;
         }
 
         .route-step.completed {
             background: linear-gradient(135deg, #32CD32, #228B22);
             border-color: #1a6b1a;
             color: white;
+            transform: scale(1.05);
         }
 
         .route-step.current {
@@ -185,83 +173,104 @@
             color: #654321;
             transform: scale(1.15);
             box-shadow: 0 0 10px rgba(255,215,0,0.8);
+            animation: pulse 1.5s infinite;
         }
 
-        /* Middle Top */
-        #middleTopSection {
+        @keyframes pulse {
+            0%, 100% { transform: scale(1.15); }
+            50% { transform: scale(1.25); }
+        }
+
+        /* Center */
+        #centerBoxes {
             display: grid;
             grid-template-rows: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
 
-        /* Weglegstapel met achtergrond */
-        #discardPileBox {
+        #discardBox {
             background: url('/images/boards/Weglegstapel-achtergrond.jpg') center/cover;
             border: 4px solid #8B4513;
             border-radius: 12px;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             position: relative;
         }
 
-        #discardPileBox h3 {
+        #discardBox::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 250, 240, 0.3);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        #discardBox h3 {
+            position: relative;
             color: #654321;
-            font-size: 16px;
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            font-size: 13px;
+            margin-bottom: 3px;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
+            font-weight: bold;
         }
 
         #discardCount {
-            font-size: 42px;
+            position: relative;
+            font-size: 32px;
             color: #8B4513;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.6);
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.7);
         }
 
-        /* Big Five Indicator met achtergrond */
         #bigFiveBox {
             background: url('/images/boards/Big-Five-indicator-strip.jpg') center/contain no-repeat;
             background-size: 100% 100%;
             border-radius: 12px;
-            padding: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
-        /* Right Top */
-        #rightTopSection {
+        /* Right */
+        #rightBoxes {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         #roomCode {
             background: linear-gradient(135deg, #8B4513, #A0522D);
-            padding: 12px;
+            padding: 10px;
             border-radius: 12px;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             color: white;
             border: 4px solid #FFD700;
             text-align: center;
-            letter-spacing: 3px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            letter-spacing: 2px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
         #turnIndicator {
             flex: 1;
-            text-align: center;
-            padding: 12px;
+            padding: 10px;
             background: linear-gradient(135deg, #228B22, #32CD32);
             color: white;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 4px solid #1a6b1a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            text-align: center;
         }
 
         #turnIndicator.notYourTurn {
@@ -269,105 +278,58 @@
             border-color: #8B0000;
         }
 
-        /* Main Game Area */
-        #mainGameArea {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 10px;
-            height: 100%;
-        }
-
-        /* Special Cards Column */
-        #specialCardsColumn {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .special-slot-box {
-            background: linear-gradient(135deg, rgba(173, 216, 230, 0.9), rgba(135, 206, 235, 0.9));
-            border: 4px solid #4682B4;
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            flex: 1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .special-slot-box h4 {
-            color: #1E3A5F;
-            font-size: 14px;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .special-slot {
-            min-height: 120px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 3px dashed #4682B4;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Play Areas Grid */
-        #playAreasGrid {
+        /* Main Area - ALLEEN SPEELVLAKKEN */
+        #mainArea {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
-            height: 100%;
         }
 
-        .playAreaWrapper {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        /* Speelvlak met achtergrond */
-        .playAreaWrapper {
+        .playAreaBox {
             background: url('/images/boards/Speelvlak-template.jpg') center/cover;
-            border: 5px solid #8B4513;
-            border-radius: 15px;
+            border: 4px solid #8B4513;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
-        .playAreaWrapper:hover {
+        .playAreaBox:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(34, 139, 34, 0.5);
+            box-shadow: 0 6px 16px rgba(34, 139, 34, 0.5);
             border-color: #228B22;
         }
 
-        .playAreaWrapper h3 {
-            background: rgba(139, 69, 19, 0.8);
+        .playAreaBox h3 {
+            background: rgba(139, 69, 19, 0.9);
             color: white;
             text-align: center;
-            padding: 10px;
-            font-size: 18px;
-            margin: 0;
+            padding: 8px;
+            font-size: 15px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
         }
 
-        .playArea {
+        .playAreaContent {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
+            background: rgba(255, 250, 240, 0.75);
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            background: rgba(255, 250, 240, 0.6);
+            gap: 8px;
         }
 
-        .special-slots-row {
+        /* Speciale kaart slots (2 per speelvlak) */
+        .spec-slots {
             display: flex;
             gap: 8px;
             height: 70px;
         }
 
-        .area-special-slot {
+        .spec-slot {
             flex: 1;
             background: rgba(173, 216, 230, 0.7);
             border: 3px dashed #4682B4;
@@ -376,41 +338,42 @@
             align-items: center;
             justify-content: center;
             font-size: 11px;
-            color: #1E3A5F;
+            color: #4682B4;
             font-weight: bold;
         }
 
-        .numbered-positions {
+        /* Normale posities (5 genummerd) */
+        .positions {
             flex: 1;
             display: flex;
             flex-direction: column;
             gap: 4px;
-            background: rgba(255, 250, 205, 0.7);
+            background: rgba(255, 250, 205, 0.85);
             border-radius: 10px;
-            padding: 8px;
+            padding: 6px;
         }
 
-        .position-row {
+        .pos-row {
             flex: 1;
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 3px solid #DEB887;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #DEB887;
             border-radius: 6px;
             padding: 3px 8px;
         }
 
-        .position-number {
-            min-width: 24px;
+        .pos-num {
+            min-width: 22px;
             font-weight: bold;
             color: #8B4513;
-            font-size: 16px;
+            font-size: 14px;
         }
 
-        .position-card-slot {
+        .pos-slot {
             flex: 1;
-            min-height: 35px;
+            min-height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -432,36 +395,35 @@
             object-fit: cover;
         }
 
-        /* Personal Hand */
-        #personalHandArea {
-            height: 180px;
-            background: linear-gradient(135deg, rgba(245, 222, 179, 0.95), rgba(222, 184, 135, 0.95));
+        /* Hand */
+        #handArea {
+            background: linear-gradient(135deg, rgba(245, 222, 179, 0.98), rgba(222, 184, 135, 0.98));
             border: 5px solid #8B4513;
             border-radius: 15px;
             padding: 12px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.4);
-            backdrop-filter: blur(5px);
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
         }
 
-        #personalHandArea h2 {
+        #handArea h2 {
             color: #654321;
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 20px;
+            margin-bottom: 8px;
+            font-size: 18px;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
         }
 
-        #personalHand {
+        #hand {
             display: flex;
             gap: 10px;
             justify-content: center;
-            height: calc(100% - 40px);
+            height: calc(100% - 35px);
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .card {
-            width: 105px;
-            height: 145px;
+            width: 100px;
+            height: 140px;
             border: 3px solid #333;
             border-radius: 8px;
             cursor: pointer;
@@ -475,19 +437,20 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none;
         }
 
         .card:hover {
             transform: translateY(-20px) scale(1.1);
             z-index: 100;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
         }
 
         .card.selected {
             transform: translateY(-25px) scale(1.15);
             border-color: #FFD700;
             border-width: 5px;
-            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 18px 40px rgba(255, 215, 0, 0.8);
             z-index: 200;
         }
 
@@ -545,13 +508,12 @@
         <p id="errorMessage"></p>
     </div>
 
-    <!-- Game Screen -->
+    <!-- Game -->
     <div id="gameContainer">
-        <!-- Top Section -->
-        <div id="topSection">
-            <!-- Safari Route Board -->
-            <div id="safariRouteBoard">
-                <h3>SAFARI ROUTE</h3>
+        <!-- Top -->
+        <div id="topBar">
+            <div id="safariRouteBox">
+                <h3>Safari Route</h3>
                 <div class="route-player" id="routePlayer0">
                     <div class="route-label" id="routeLabel0">Speler 1</div>
                     <div class="safari-route" id="safariRoute0"></div>
@@ -562,83 +524,64 @@
                 </div>
             </div>
 
-            <!-- Middle Top -->
-            <div id="middleTopSection">
-                <div id="discardPileBox">
+            <div id="centerBoxes">
+                <div id="discardBox">
                     <h3>📦 WEGLEGSTAPEL</h3>
                     <div id="discardCount">0</div>
                 </div>
-                <div id="bigFiveBox">
-                    <!-- Big Five strip image already shows animals -->
-                </div>
+                <div id="bigFiveBox"></div>
             </div>
 
-            <!-- Right Top -->
-            <div id="rightTopSection">
+            <div id="rightBoxes">
                 <div id="roomCode">ROOM: ----</div>
                 <div id="turnIndicator">⏳ Wachten...</div>
             </div>
         </div>
 
-        <!-- Main Game Area -->
-        <div id="mainGameArea">
-            <!-- Special Cards Column -->
-            <div id="specialCardsColumn">
-                <div class="special-slot-box">
-                    <h4>Speciale kaart 1</h4>
-                    <div class="special-slot" id="globalSpecial0"></div>
-                </div>
-                <div class="special-slot-box">
-                    <h4>Speciale kaart 2</h4>
-                    <div class="special-slot" id="globalSpecial1"></div>
+        <!-- 3 Speelvlakken (zonder linker kolom) -->
+        <div id="mainArea">
+            <div class="playAreaBox" onclick="selectArea(0)">
+                <h3>SPEELVLAK 1</h3>
+                <div class="playAreaContent">
+                    <div class="spec-slots">
+                        <div class="spec-slot" id="area0spec0">Spec 1</div>
+                        <div class="spec-slot" id="area0spec1">Spec 2</div>
+                    </div>
+                    <div class="positions" id="area0Positions"></div>
                 </div>
             </div>
 
-            <!-- 3 Speelvlakken -->
-            <div id="playAreasGrid">
-                <div class="playAreaWrapper" onclick="selectArea(0)">
-                    <h3>SPEELVLAK 1</h3>
-                    <div class="playArea">
-                        <div class="special-slots-row">
-                            <div class="area-special-slot">Spec 1</div>
-                            <div class="area-special-slot">Spec 2</div>
-                        </div>
-                        <div class="numbered-positions" id="area0Positions"></div>
+            <div class="playAreaBox" onclick="selectArea(1)">
+                <h3>SPEELVLAK 2</h3>
+                <div class="playAreaContent">
+                    <div class="spec-slots">
+                        <div class="spec-slot" id="area1spec0">Spec 1</div>
+                        <div class="spec-slot" id="area1spec1">Spec 2</div>
                     </div>
+                    <div class="positions" id="area1Positions"></div>
                 </div>
+            </div>
 
-                <div class="playAreaWrapper" onclick="selectArea(1)">
-                    <h3>SPEELVLAK 2</h3>
-                    <div class="playArea">
-                        <div class="special-slots-row">
-                            <div class="area-special-slot">Spec 1</div>
-                            <div class="area-special-slot">Spec 2</div>
-                        </div>
-                        <div class="numbered-positions" id="area1Positions"></div>
+            <div class="playAreaBox" onclick="selectArea(2)">
+                <h3>SPEELVLAK 3</h3>
+                <div class="playAreaContent">
+                    <div class="spec-slots">
+                        <div class="spec-slot" id="area2spec0">Spec 1</div>
+                        <div class="spec-slot" id="area2spec1">Spec 2</div>
                     </div>
-                </div>
-
-                <div class="playAreaWrapper" onclick="selectArea(2)">
-                    <h3>SPEELVLAK 3</h3>
-                    <div class="playArea">
-                        <div class="special-slots-row">
-                            <div class="area-special-slot">Spec 1</div>
-                            <div class="area-special-slot">Spec 2</div>
-                        </div>
-                        <div class="numbered-positions" id="area2Positions"></div>
-                    </div>
+                    <div class="positions" id="area2Positions"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Personal Hand -->
-        <div id="personalHandArea">
+        <!-- Hand -->
+        <div id="handArea">
             <h2>🎴 Jouw Kaarten</h2>
-            <div id="personalHand"></div>
+            <div id="hand"></div>
         </div>
     </div>
 
-    <!-- Winner Modal -->
+    <!-- Winner -->
     <div id="winnerModal">
         <div class="winner-content">
             <div class="winner-emoji">🏆</div>
@@ -655,17 +598,17 @@
         let currentRoomId = null;
         let selectedCard = null;
 
-        // Initialize numbered positions
+        // Initialize positions
         for (let areaId = 0; areaId < 3; areaId++) {
-            const positionsDiv = document.getElementById(`area${areaId}Positions`);
+            const posDiv = document.getElementById(`area${areaId}Positions`);
             for (let i = 5; i >= 1; i--) {
                 const row = document.createElement('div');
-                row.className = 'position-row';
+                row.className = 'pos-row';
                 row.innerHTML = `
-                    <div class="position-number">${i}</div>
-                    <div class="position-card-slot" id="area${areaId}pos${i}"></div>
+                    <div class="pos-num">${i}</div>
+                    <div class="pos-slot" id="area${areaId}pos${i}"></div>
                 `;
-                positionsDiv.appendChild(row);
+                posDiv.appendChild(row);
             }
         }
 
@@ -697,17 +640,20 @@
             setTimeout(() => errorEl.style.display = 'none', 3000);
         }
 
+        function showGameScreen() {
+            document.getElementById('lobby').style.display = 'none';
+            document.getElementById('gameContainer').classList.add('active');
+        }
+
         socket.on('roomCreated', ({ roomId }) => {
             currentRoomId = roomId;
-            document.getElementById('lobby').style.display = 'none';
-            document.getElementById('gameContainer').style.display = 'grid';
+            showGameScreen();
             document.getElementById('roomCode').textContent = `ROOM: ${roomId}`;
         });
 
         socket.on('roomJoined', ({ roomId }) => {
             currentRoomId = roomId;
-            document.getElementById('lobby').style.display = 'none';
-            document.getElementById('gameContainer').style.display = 'grid';
+            showGameScreen();
             document.getElementById('roomCode').textContent = `ROOM: ${roomId}`;
         });
 
@@ -745,43 +691,72 @@
                 routePlayer.classList.toggle('active', idx === gameState.currentPlayer);
             });
 
-            // Turn indicator
+            // Turn
             const isMyTurn = gameState.currentPlayer === myPlayerId;
             const turnIndicator = document.getElementById('turnIndicator');
-            turnIndicator.textContent = isMyTurn ? '🎯 Jouw beurt!' : '⏳ Tegenstander...';
+            turnIndicator.textContent = isMyTurn ? '🎯 Jouw beurt!' : '⏳ Wachten...';
             turnIndicator.classList.toggle('notYourTurn', !isMyTurn);
 
             // Play areas
             gameState.playAreas.forEach((area, areaIdx) => {
+                // Clear posities
                 for (let pos = 1; pos <= 5; pos++) {
-                    document.getElementById(`area${areaIdx}pos${pos}`).innerHTML = '';
+                    const slot = document.getElementById(`area${areaIdx}pos${pos}`);
+                    if (slot) slot.innerHTML = '';
+                }
+                
+                // Clear speciale slots
+                for (let spec = 0; spec < 2; spec++) {
+                    const specSlot = document.getElementById(`area${areaIdx}spec${spec}`);
+                    if (specSlot) specSlot.innerHTML = `Spec ${spec + 1}`;
                 }
 
+                // Render normale kaarten (posities 1-5)
                 area.cards.forEach((card, cardIdx) => {
                     const position = cardIdx + 1;
                     if (position <= 5) {
                         const slot = document.getElementById(`area${areaIdx}pos${position}`);
-                        const miniCard = document.createElement('div');
-                        miniCard.className = 'mini-card';
-                        miniCard.innerHTML = `<img src="/images/cards/${card.imageNum}.png" alt="kaart">`;
-                        slot.appendChild(miniCard);
+                        if (slot) {
+                            const miniCard = document.createElement('div');
+                            miniCard.className = 'mini-card';
+                            miniCard.innerHTML = `<img src="/images/cards/${card.imageNum}.png" alt="kaart">`;
+                            slot.appendChild(miniCard);
+                        }
+                    }
+                });
+
+                // Render speciale kaarten
+                area.specialCards.forEach((card, specIdx) => {
+                    if (specIdx < 2) {
+                        const specSlot = document.getElementById(`area${areaIdx}spec${specIdx}`);
+                        if (specSlot) {
+                            const miniCard = document.createElement('div');
+                            miniCard.className = 'mini-card';
+                            miniCard.style.width = '100%';
+                            miniCard.style.height = '100%';
+                            miniCard.innerHTML = `<img src="/images/cards/${card.imageNum}.png" alt="special">`;
+                            specSlot.innerHTML = '';
+                            specSlot.appendChild(miniCard);
+                        }
                     }
                 });
             });
 
-            // Discard pile
+            // Discard
             document.getElementById('discardCount').textContent = gameState.discardPile.length;
 
-            // Personal hand
+            // Hand
             const myPlayer = gameState.players[myPlayerId];
-            const handEl = document.getElementById('personalHand');
+            const handEl = document.getElementById('hand');
             handEl.innerHTML = '';
             
             myPlayer.hand.forEach(card => {
                 if (!card.hidden) {
                     const cardEl = document.createElement('div');
                     cardEl.className = 'card';
-                    if (selectedCard && selectedCard.id === card.id) cardEl.classList.add('selected');
+                    if (selectedCard && selectedCard.id === card.id) {
+                        cardEl.classList.add('selected');
+                    }
                     cardEl.innerHTML = `<img src="/images/cards/${card.imageNum}.png" alt="${card.type}">`;
                     cardEl.onclick = () => selectCard(card);
                     handEl.appendChild(cardEl);
