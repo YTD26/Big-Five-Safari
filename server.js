@@ -255,7 +255,7 @@ class BigFiveGame {
         }
 
         // ZET OWNER EN PLAATS DE KAART
-        card.owner = playerIndex; // OWNER TRACKING
+        card.owner = playerIndex;
         
         if (card.type === 'special') {
             if (area.specialCards.length >= 2) {
@@ -284,6 +284,8 @@ class BigFiveGame {
         // Check voor complete Big Five set
         const bigFiveResult = this.checkForBigFive(targetAreaId, playerIndex);
         
+        let bigFiveData = null;
+        
         if (bigFiveResult.completed) {
             // Basis punten: 3
             let points = 3;
@@ -299,8 +301,17 @@ class BigFiveGame {
             player.score += points;
             player.position = Math.min(player.score, 10);
             
-            const bigFiveEffect = `🏆 BIG FIVE COMPLEET! ${player.name} scoort ${points} punten${bonusMessage}`;
-            console.log(bigFiveEffect);
+            console.log(`🏆 ${player.name} heeft een Big Five set voltooid! +${points} punten${bonusMessage}`);
+            
+            // Sla alle kaarten op voor modal (VOOR verwijdering)
+            const allCards = [...area.cards, ...area.specialCards];
+            
+            bigFiveData = {
+                playerName: player.name,
+                cards: allCards,
+                points: points,
+                hasZebra: bigFiveResult.hasZebra
+            };
             
             // Verwijder kaarten naar discard pile
             this.gameState.discardPile.push(...area.cards, ...area.specialCards);
@@ -309,7 +320,9 @@ class BigFiveGame {
             area.blocked = false;
             area.blockedForPlayer = null;
 
-            // Combineer special effects
+            // Update special effect voor niet-modal weergave
+            const bigFiveEffect = `🏆 BIG FIVE COMPLEET! ${player.name} scoort ${points} punten${bonusMessage}`;
+            
             if (specialEffect) {
                 specialEffect = `${specialEffect}\n\n${bigFiveEffect}`;
             } else {
@@ -317,7 +330,7 @@ class BigFiveGame {
             }
         }
 
-        // Reset blokkering na beurt (alleen voor andere speelvlakken)
+        // Reset blokkering na beurt
         this.gameState.playAreas.forEach((a, idx) => {
             if (idx !== targetAreaId && a.blockedForPlayer === playerIndex) {
                 a.blocked = false;
@@ -334,6 +347,7 @@ class BigFiveGame {
         return { 
             success: true, 
             bigFiveCompleted: bigFiveResult.completed,
+            bigFiveData: bigFiveData,
             specialEffect: specialEffect,
             points: bigFiveResult.completed ? (bigFiveResult.hasZebra ? 6 : 3) : 0
         };
@@ -421,8 +435,8 @@ class BigFiveGame {
             handCount: p.hand.length,
             frozen: p.frozen,
             hand: p.id === playerId 
-                ? p.hand // Eigen kaarten tonen
-                : p.hand.map(() => ({ hidden: true, imageNum: 55 })) // Tegenstander: achterkant (kaart 55)
+                ? p.hand 
+                : p.hand.map(() => ({ hidden: true, imageNum: 55 }))
         }));
 
         return state;
@@ -507,7 +521,8 @@ io.on('connection', (socket) => {
                     playerSocket.emit('gameStateUpdated', {
                         gameState: game.getGameStateForPlayer(player.id),
                         yourPlayerId: pIdx,
-                        specialEffect: result.specialEffect
+                        specialEffect: result.specialEffect,
+                        bigFiveData: result.bigFiveData // NIEUWE DATA voor modal
                     });
                 }
             });
@@ -603,10 +618,11 @@ server.listen(PORT, () => {
     console.log(`   🐻‍❄️ IJSBEER - Bevries tegenstander (skip 1 beurt)`);
     console.log(`   🔭 BIG FIVE SPOTTER - Completeer set met 4 dieren\n`);
     
-    console.log(`🔒 PRIVACY:`);
-    console.log(`   • Tegenstander ziet kaart 55 (achterkant)`);
-    console.log(`   • Owner tracking actief`);
-    console.log(`   • Hand altijd privé\n`);
+    console.log(`🎨 NIEUWE FEATURES:`);
+    console.log(`   • Piramide layout in speelvlakken`);
+    console.log(`   • Big Five completion modal met kaarten`);
+    console.log(`   • Privacy: tegenstander ziet kaart 55`);
+    console.log(`   • Animated card reveals\n`);
     
     console.log(`${'='.repeat(60)}\n`);
 });
