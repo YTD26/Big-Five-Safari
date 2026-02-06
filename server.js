@@ -65,7 +65,8 @@ class BigFiveGame {
                     id: `${animal}-${cardId++}`,
                     type: 'bigfive',
                     animal: animal,
-                    imageNum: CARD_IMAGES[animal][i]
+                    imageNum: CARD_IMAGES[animal][i],
+                    owner: null
                 });
             }
         });
@@ -78,7 +79,8 @@ class BigFiveGame {
                     id: `${special}-${cardId++}`,
                     type: 'special',
                     special: special,
-                    imageNum: CARD_IMAGES[special][i]
+                    imageNum: CARD_IMAGES[special][i],
+                    owner: null
                 });
             }
         });
@@ -97,7 +99,8 @@ class BigFiveGame {
                 id: `COMBO-${cardId++}`,
                 type: 'combination',
                 animals: combo.animals,
-                imageNum: CARD_IMAGES[combo.key]
+                imageNum: CARD_IMAGES[combo.key],
+                owner: null
             });
         });
 
@@ -251,7 +254,9 @@ class BigFiveGame {
             }
         }
 
-        // Plaats de kaart
+        // ZET OWNER EN PLAATS DE KAART
+        card.owner = playerIndex; // OWNER TRACKING
+        
         if (card.type === 'special') {
             if (area.specialCards.length >= 2) {
                 return { success: false, message: 'Speciale slots zijn vol!' };
@@ -597,6 +602,11 @@ server.listen(PORT, () => {
     console.log(`   🦅 AASGIER - Pak 1 kaart terug uit weglegstapel`);
     console.log(`   🐻‍❄️ IJSBEER - Bevries tegenstander (skip 1 beurt)`);
     console.log(`   🔭 BIG FIVE SPOTTER - Completeer set met 4 dieren\n`);
+    
+    console.log(`🔒 PRIVACY:`);
+    console.log(`   • Tegenstander ziet kaart 55 (achterkant)`);
+    console.log(`   • Owner tracking actief`);
+    console.log(`   • Hand altijd privé\n`);
     
     console.log(`${'='.repeat(60)}\n`);
 });
