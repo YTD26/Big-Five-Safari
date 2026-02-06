@@ -42,9 +42,9 @@ class BigFiveGame {
         this.gameState = {
             currentPlayer: 0,
             playAreas: [
-                { cards: [], specialCards: [], blocked: false },
-                { cards: [], specialCards: [], blocked: false },
-                { cards: [], specialCards: [], blocked: false }
+                { cards: [], specialCards: [], blocked: false, blockedForPlayer: null },
+                { cards: [], specialCards: [], blocked: false, blockedForPlayer: null },
+                { cards: [], specialCards: [], blocked: false, blockedForPlayer: null }
             ],
             discardPile: [],
             deckCount: 0,
@@ -115,7 +115,6 @@ class BigFiveGame {
     }
 
     dealCards() {
-        // Elke speler krijgt 8 kaarten
         this.players.forEach(player => {
             player.hand = [];
             for (let i = 0; i < 8; i++) {
@@ -151,20 +150,6 @@ class BigFiveGame {
         return false;
     }
 
-    drawCard(playerId) {
-        const playerIndex = this.players.findIndex(p => p.id === playerId);
-        if (playerIndex === -1) return { success: false, message: 'Speler niet gevonden' };
-
-        if (this.deck.length > 0) {
-            const card = this.deck.pop();
-            this.players[playerIndex].hand.push(card);
-            this.gameState.deckCount = this.deck.length;
-            return { success: true, card: card };
-        }
-
-        return { success: false, message: 'Deck is leeg!' };
-    }
-
     playCard(playerId, cardId, targetAreaId, extraData = {}) {
         const playerIndex = this.players.findIndex(p => p.id === playerId);
         if (playerIndex !== this.gameState.currentPlayer) {
@@ -193,9 +178,9 @@ class BigFiveGame {
         const card = player.hand[cardIndex];
         const area = this.gameState.playAreas[targetAreaId];
 
-        // Check of area geblokkeerd is
-        if (area.blocked) {
-            return { success: false, message: 'Dit speelvlak is geblokkeerd!' };
+        // Check of area geblokkeerd is voor deze speler
+        if (area.blocked && area.blockedForPlayer === playerIndex) {
+            return { success: false, message: 'Dit speelvlak is geblokkeerd door tegenstander!' };
         }
 
         let specialEffect = null;
@@ -205,18 +190,18 @@ class BigFiveGame {
         if (card.type === 'special') {
             switch(card.special) {
                 case 'KROKODIL':
-                    // Steel een willekeurige kaart van tegenstander
                     if (opponent.hand.length > 0) {
                         const stolenIndex = Math.floor(Math.random() * opponent.hand.length);
                         const stolenCard = opponent.hand.splice(stolenIndex, 1)[0];
                         player.hand.push(stolenCard);
                         specialEffect = `🐊 KROKODIL: Je hebt een kaart gestolen van ${opponent.name}!`;
                         console.log(`🐊 ${player.name} steelt kaart van ${opponent.name}`);
+                    } else {
+                        specialEffect = `🐊 KROKODIL: ${opponent.name} heeft geen kaarten meer!`;
                     }
                     break;
 
                 case 'AASGIER':
-                    // Pak een kaart uit de weglegstapel
                     if (this.gameState.discardPile.length > 0) {
                         const salvaged = this.gameState.discardPile.pop();
                         player.hand.push(salvaged);
@@ -224,32 +209,46 @@ class BigFiveGame {
                                         salvaged.type === 'special' ? salvaged.special : 'COMBO';
                         specialEffect = `🦅 AASGIER: Je hebt ${cardName} teruggehaald uit de weglegstapel!`;
                         console.log(`🦅 ${player.name} pakt ${cardName} uit discard pile`);
+                    } else {
+                        specialEffect = `🦅 AASGIER: Weglegstapel is leeg!`;
                     }
                     break;
 
                 case 'GIRAFFE':
-                    // Kijk naar de top 3 kaarten van het deck
                     const topCards = this.deck.slice(-3).reverse();
-                    const cardNames = topCards.map(c => 
-                        c.type === 'bigfive' ? c.animal : 
-                        c.type === 'special' ? c.special : 'COMBO'
-                    ).join(', ');
-                    specialEffect = `🦒 GIRAFFE: De volgende kaarten zijn: ${cardNames || 'Geen kaarten meer'}`;
-                    console.log(`🦒 ${player.name} kijkt naar top 3: ${cardNames}`);
+                    if (topCards.length > 0) {
+                        const cardNames = topCards.map(c => 
+                            c.type === 'bigfive' ? c.animal : 
+                            c.type === 'special' ? c.special : 'COMBO'
+                        ).join(', ');
+                        specialEffect = `🦒 GIRAFFE: Volgende ${topCards.length} kaart(en): ${cardNames}`;
+                        console.log(`🦒 ${player.name} kijkt naar top ${topCards.length}: ${cardNames}`);
+                    } else {
+                        specialEffect = `🦒 GIRAFFE: Deck is leeg!`;
+                    }
                     break;
 
                 case 'IJSBEER':
-                    // Bevries tegenstander (sla volgende beurt over)
                     opponent.frozen = true;
-                    specialEffect = `🐻‍❄️ IJSBEER: ${opponent.name} is bevroren en slaat de volgende beurt over!`;
+                    specialEffect = `🐻‍❄️ IJSBEER: ${opponent.name} wordt bevroren en slaat de volgende beurt over!`;
                     console.log(`🐻‍❄️ ${player.name} bevriest ${opponent.name}`);
                     break;
 
                 case 'ZEBRA':
-                    // Blokkeer een speelvlak voor tegenstander (dit speelvlak)
+                    area.blocked = true;
                     area.blockedForPlayer = (playerIndex + 1) % 2;
-                    specialEffect = `🦓 ZEBRA: Dit speelvlak is geblokkeerd voor ${opponent.name}! (+ dubbele punten bij Big Five)`;
-                    console.log(`🦓 ${player.name} blokkeert speelvlak ${targetAreaId + 1}`);
+                    specialEffect = `🦓 ZEBRA: Dit speelvlak is nu geblokkeerd voor ${opponent.name}! (+dubbele punten bij Big Five)`;
+                    console.log(`🦓 ${player.name} blokkeert speelvlak ${targetAreaId + 1} voor ${opponent.name}`);
+                    break;
+
+                case 'KAMELEON':
+                    specialEffect = `🦎 KAMELEON: Kan ontbrekend Big Five dier aanvullen (bij 4/5)`;
+                    console.log(`🦎 ${player.name} speelt Kameleon`);
+                    break;
+
+                case 'BIG_FIVE_SPOTTER':
+                    specialEffect = `🔭 BIG FIVE SPOTTER: Kan Big Five completeren bij 4 dieren`;
+                    console.log(`🔭 ${player.name} speelt Big Five Spotter`);
                     break;
             }
         }
@@ -274,11 +273,11 @@ class BigFiveGame {
 
         // Trek nieuwe kaart als deck niet leeg is
         if (this.deck.length > 0) {
-            player.hand.push(this.deck.pop());
+            const newCard = this.deck.pop();
+            player.hand.push(newCard);
             this.gameState.deckCount = this.deck.length;
         }
 
-        // Sla laatste gespeelde kaart op
         this.gameState.lastPlayedCard = card;
 
         // Check voor complete Big Five set
@@ -287,11 +286,10 @@ class BigFiveGame {
         let bigFiveData = null;
         
         if (bigFiveResult.completed) {
-            // Basis punten: 3
             let points = 3;
             let bonusMessage = '';
 
-            // ZEBRA BONUS: Dubbele punten als Zebra in het speelvlak zit
+            // ZEBRA BONUS: Dubbele punten als Zebra van deze speler in het speelvlak zit
             if (bigFiveResult.hasZebra) {
                 points *= 2;
                 bonusMessage = ' 🦓 (x2 door Zebra!)';
@@ -303,7 +301,7 @@ class BigFiveGame {
             
             console.log(`🏆 ${player.name} heeft een Big Five set voltooid! +${points} punten${bonusMessage}`);
             
-            // Sla alle kaarten op voor modal (VOOR verwijdering)
+            // Sla alle kaarten op voor modal
             const allCards = [...area.cards, ...area.specialCards];
             
             bigFiveData = {
@@ -320,7 +318,6 @@ class BigFiveGame {
             area.blocked = false;
             area.blockedForPlayer = null;
 
-            // Update special effect voor niet-modal weergave
             const bigFiveEffect = `🏆 BIG FIVE COMPLEET! ${player.name} scoort ${points} punten${bonusMessage}`;
             
             if (specialEffect) {
@@ -329,14 +326,6 @@ class BigFiveGame {
                 specialEffect = bigFiveEffect;
             }
         }
-
-        // Reset blokkering na beurt
-        this.gameState.playAreas.forEach((a, idx) => {
-            if (idx !== targetAreaId && a.blockedForPlayer === playerIndex) {
-                a.blocked = false;
-                a.blockedForPlayer = null;
-            }
-        });
 
         // Wissel beurt
         this.gameState.currentPlayer = (this.gameState.currentPlayer + 1) % 2;
@@ -360,7 +349,7 @@ class BigFiveGame {
         let hasKameleon = false;
         let hasBigFiveSpotter = false;
 
-        // Verzamel alle Big Five dieren
+        // Verzamel ALLE Big Five dieren in dit speelvlak (van beide spelers!)
         area.cards.forEach(card => {
             if (card.type === 'bigfive') {
                 animals.add(card.animal);
@@ -369,9 +358,9 @@ class BigFiveGame {
             }
         });
 
-        // Check speciale kaarten
+        // Check speciale kaarten van DEZE SPELER (alleen eigen speciale kaarten tellen voor bonus)
         area.specialCards.forEach(card => {
-            if (card.type === 'special') {
+            if (card.owner === playerIndex && card.type === 'special') {
                 switch(card.special) {
                     case 'ZEBRA':
                         hasZebra = true;
@@ -388,30 +377,36 @@ class BigFiveGame {
             }
         });
 
-        // Kameleon of Big Five Spotter: vult ontbrekend dier aan (bij 4 van 5)
+        // KAMELEON of BIG FIVE SPOTTER van DEZE SPELER: vult ontbrekend dier aan (bij 4 van 5)
         if ((hasKameleon || hasBigFiveSpotter) && animals.size === 4) {
             const bigFive = ['LEEUW', 'OLIFANT', 'LUIPAARD', 'BUFFEL', 'NEUSHOORN'];
             const missing = bigFive.find(animal => !animals.has(animal));
             if (missing) {
                 animals.add(missing);
                 const cardType = hasKameleon ? 'Kameleon 🦎' : 'Big Five Spotter 🔭';
-                console.log(`${cardType} vult ontbrekend dier aan: ${missing}`);
+                console.log(`✨ ${cardType} van speler ${playerIndex} vult ontbrekend dier aan: ${missing}`);
             }
         }
 
-        // Check voor complete Big Five (alle 5 dieren)
+        // Check voor COMPLETE Big Five (alle 5 dieren)
         const bigFive = ['LEEUW', 'OLIFANT', 'LUIPAARD', 'BUFFEL', 'NEUSHOORN'];
         const hasAllBigFive = bigFive.every(animal => animals.has(animal));
+        
+        // ALLEEN PUNTEN ALS BIG FIVE COMPLEET IS
         const completed = hasAllBigFive && area.cards.length > 0;
 
         if (completed) {
-            console.log(`✅ Big Five compleet! Dieren: ${Array.from(animals).join(', ')}`);
+            console.log(`✅ Big Five compleet! Speler ${playerIndex} wint de punten!`);
+            console.log(`   Dieren in speelvlak: ${Array.from(animals).join(', ')}`);
+        } else if (animals.size > 0) {
+            console.log(`📊 Speelvlak ${areaId + 1} heeft ${animals.size}/5 dieren: ${Array.from(animals).join(', ')}`);
         }
 
         return { 
             completed, 
             hasZebra,
-            animals: Array.from(animals)
+            animals: Array.from(animals),
+            animalCount: animals.size
         };
     }
 
@@ -427,7 +422,6 @@ class BigFiveGame {
     getGameStateForPlayer(playerId) {
         const state = JSON.parse(JSON.stringify(this.gameState));
         
-        // Voeg speler data toe
         state.players = this.players.map((p, idx) => ({
             name: p.name,
             score: p.score,
@@ -477,12 +471,10 @@ io.on('connection', (socket) => {
 
         console.log(`👥 ${playerName} joined room ${roomId}`);
 
-        // Start het spel
         if (game.startGame()) {
             console.log(`🎲 Spel gestart in room ${roomId}`);
             console.log(`📊 Deck bevat ${game.gameState.deckCount} kaarten`);
             
-            // Stuur gamestate naar beide spelers
             game.players.forEach((player, idx) => {
                 const playerSocket = io.sockets.sockets.get(player.id);
                 if (playerSocket) {
@@ -502,7 +494,8 @@ io.on('connection', (socket) => {
         const result = game.playCard(socket.id, cardId, targetAreaId, extraData);
 
         if (result.success) {
-            const player = game.players[game.gameState.currentPlayer === 0 ? 1 : 0];
+            const playerIndex = game.players.findIndex(p => p.id === socket.id);
+            const player = game.players[playerIndex];
             console.log(`🃏 ${player.name} speelt kaart ${cardId} naar speelvlak ${targetAreaId + 1}`);
             
             if (result.specialEffect) {
@@ -513,7 +506,6 @@ io.on('connection', (socket) => {
                 console.log(`🎯 ${player.name} heeft ${result.points} punten gescoord!`);
             }
 
-            // Stuur updated gamestate naar beide spelers
             game.players.forEach((player) => {
                 const playerSocket = io.sockets.sockets.get(player.id);
                 if (playerSocket) {
@@ -522,18 +514,16 @@ io.on('connection', (socket) => {
                         gameState: game.getGameStateForPlayer(player.id),
                         yourPlayerId: pIdx,
                         specialEffect: result.specialEffect,
-                        bigFiveData: result.bigFiveData // NIEUWE DATA voor modal
+                        bigFiveData: result.bigFiveData
                     });
                 }
             });
 
-            // Check winner
             if (game.gameState.winner !== null) {
                 const winner = game.players[game.gameState.winner];
                 console.log(`👑 ${winner.name} wint het spel met ${winner.score} punten!`);
             }
         } else if (result.skipTurn) {
-            // Beurt overgeslagen door IJsbeer
             game.players.forEach((player) => {
                 const playerSocket = io.sockets.sockets.get(player.id);
                 if (playerSocket) {
@@ -542,30 +532,6 @@ io.on('connection', (socket) => {
                         gameState: game.getGameStateForPlayer(player.id),
                         yourPlayerId: pIdx,
                         specialEffect: result.specialEffect
-                    });
-                }
-            });
-        } else {
-            socket.emit('error', { message: result.message });
-        }
-    });
-
-    socket.on('drawCard', ({ roomId }) => {
-        const game = rooms.get(roomId);
-        if (!game) return;
-
-        const result = game.drawCard(socket.id);
-        if (result.success) {
-            console.log(`🎴 Kaart getrokken uit deck`);
-            
-            // Update gamestate
-            game.players.forEach((player) => {
-                const playerSocket = io.sockets.sockets.get(player.id);
-                if (playerSocket) {
-                    const pIdx = game.players.findIndex(p => p.id === player.id);
-                    playerSocket.emit('gameStateUpdated', {
-                        gameState: game.getGameStateForPlayer(player.id),
-                        yourPlayerId: pIdx
                     });
                 }
             });
@@ -595,34 +561,35 @@ function generateRoomCode() {
 }
 
 server.listen(PORT, () => {
-    console.log(`\n${'='.repeat(60)}`);
+    console.log(`\n${'='.repeat(70)}`);
     console.log(`🦁 BIG FIVE - SAFARI KAARTSPEL SERVER`);
-    console.log(`${'='.repeat(60)}`);
+    console.log(`${'='.repeat(70)}`);
     console.log(`📡 Server draait op poort: ${PORT}`);
     console.log(`🌐 Local URL: http://localhost:${PORT}`);
-    console.log(`${'='.repeat(60)}\n`);
+    console.log(`${'='.repeat(70)}\n`);
     
-    console.log(`✨ Spelregels actief:\n`);
-    console.log(`📋 BASIS:`);
-    console.log(`   • 2 spelers, 8 kaarten per speler`);
-    console.log(`   • 3 speelvlakken: 5 normale + 2 speciale slots`);
-    console.log(`   • Complete Big Five = 3 punten`);
+    console.log(`✨ CORRECTE SPELREGELS:\n`);
+    console.log(`📋 BIG FIVE SCORING:`);
+    console.log(`   • ALLE kaarten in speelvlak tellen mee (van beide spelers)`);
+    console.log(`   • Jouw 3 kaarten + tegenstander's 2 kaarten = JIJ wint!`);
+    console.log(`   • Degene die 5e kaart legt krijgt de punten`);
+    console.log(`   • Complete Big Five (5/5) = 3 punten`);
+    console.log(`   • Incomplete sets = GEEN punten`);
     console.log(`   • Eerste naar 10 punten wint\n`);
     
     console.log(`🎴 SPECIALE KAARTEN:`);
-    console.log(`   🦎 KAMELEON - Joker voor ontbrekend Big Five dier (bij 4/5)`);
-    console.log(`   🦓 ZEBRA - Dubbele punten (3→6) + blokkeer speelvlak`);
-    console.log(`   🐊 KROKODIL - Steel willekeurige kaart van tegenstander`);
-    console.log(`   🦒 GIRAFFE - Bekijk top 3 kaarten van deck`);
-    console.log(`   🦅 AASGIER - Pak 1 kaart terug uit weglegstapel`);
-    console.log(`   🐻‍❄️ IJSBEER - Bevries tegenstander (skip 1 beurt)`);
-    console.log(`   🔭 BIG FIVE SPOTTER - Completeer set met 4 dieren\n`);
+    console.log(`   🦎 KAMELEON - Joker voor ontbrekend dier (bij 4/5)`);
+    console.log(`   🦓 ZEBRA - Dubbele punten (3→6) + blokkeer voor tegenstander`);
+    console.log(`   🐊 KROKODIL - Steel willekeurige kaart`);
+    console.log(`   🦒 GIRAFFE - Bekijk top 3 kaarten`);
+    console.log(`   🦅 AASGIER - Pak kaart uit weglegstapel`);
+    console.log(`   🐻‍❄️ IJSBEER - Bevries tegenstander (skip beurt)`);
+    console.log(`   🔭 BIG FIVE SPOTTER - Completeer bij 4 dieren\n`);
     
-    console.log(`🎨 NIEUWE FEATURES:`);
-    console.log(`   • Piramide layout in speelvlakken`);
-    console.log(`   • Big Five completion modal met kaarten`);
-    console.log(`   • Privacy: tegenstander ziet kaart 55`);
-    console.log(`   • Animated card reveals\n`);
+    console.log(`🔒 PRIVACY:`);
+    console.log(`   • Jouw kaarten zijn zichtbaar (voorkant)`);
+    console.log(`   • Tegenstander's kaarten tonen achterkant (55)`);
+    console.log(`   • Owner tracking voor bonussen (Zebra, Kameleon, etc.)\n`);
     
-    console.log(`${'='.repeat(60)}\n`);
+    console.log(`${'='.repeat(70)}\n`);
 });
