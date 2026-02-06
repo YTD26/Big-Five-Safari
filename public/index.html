@@ -92,7 +92,7 @@
             display: grid !important;
         }
 
-        /* Top Section - GEFIXTE LAYOUT */
+        /* Top Section */
         #topSection {
             display: grid;
             grid-template-columns: 200px 100px 1fr 200px;
@@ -185,7 +185,7 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Deck & Discard - KLEINER */
+        /* Deck & Discard */
         #deckDiscardBox {
             display: flex;
             flex-direction: column;
@@ -255,7 +255,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
-        /* Right - MET WIN COUNTER */
+        /* Right */
         #rightBoxes {
             display: flex;
             flex-direction: column;
@@ -315,6 +315,7 @@
             gap: 8px;
         }
 
+        /* DRAG & DROP STYLING */
         .playAreaBox {
             background: url('/images/boards/Speelvlak-template.jpg') center/cover;
             border: 3px solid #8B4513;
@@ -339,6 +340,15 @@
             border-color: #DC143C;
         }
 
+        /* DRAG OVER EFFECT */
+        .playAreaBox.drag-over {
+            border-color: #FFD700;
+            border-width: 5px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            background-blend-mode: lighten;
+            transform: scale(1.02);
+        }
+
         .playAreaBox h3 {
             background: rgba(139, 69, 19, 0.9);
             color: white;
@@ -358,7 +368,7 @@
             gap: 4px;
         }
 
-        /* Speciale kaarten bovenaan - KLEINER */
+        /* Speciale kaarten bovenaan */
         .spec-slots {
             display: flex;
             gap: 4px;
@@ -481,7 +491,7 @@
             z-index: 10;
         }
 
-        /* Hand - HORIZONTALE RIJ, GEEN OVERLAP, VOLLEDIG LEESBAAR */
+        /* Hand - DRAGGABLE CARDS */
         #handArea {
             background: linear-gradient(135deg, rgba(245, 222, 179, 0.98), rgba(222, 184, 135, 0.98));
             border: 4px solid #8B4513;
@@ -511,18 +521,25 @@
             padding-bottom: 5px;
         }
 
+        /* DRAGGABLE CARD STYLING */
         .card {
             min-width: 160px;
             width: 160px;
             height: 224px;
             border: 3px solid #333;
             border-radius: 8px;
-            cursor: pointer;
+            cursor: grab;
             transition: all 0.3s;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             overflow: hidden;
             background: white;
             flex-shrink: 0;
+        }
+
+        .card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+            transform: scale(0.9);
         }
 
         .card img {
@@ -747,7 +764,7 @@
 
         <!-- 3 Speelvlakken -->
         <div id="mainArea">
-            <div class="playAreaBox" onclick="selectArea(0)">
+            <div class="playAreaBox" data-area-id="0">
                 <h3>SPEELVLAK 1</h3>
                 <div class="playAreaContent">
                     <div class="spec-slots">
@@ -760,7 +777,7 @@
                 </div>
             </div>
 
-            <div class="playAreaBox" onclick="selectArea(1)">
+            <div class="playAreaBox" data-area-id="1">
                 <h3>SPEELVLAK 2</h3>
                 <div class="playAreaContent">
                     <div class="spec-slots">
@@ -773,7 +790,7 @@
                 </div>
             </div>
 
-            <div class="playAreaBox" onclick="selectArea(2)">
+            <div class="playAreaBox" data-area-id="2">
                 <h3>SPEELVLAK 3</h3>
                 <div class="playAreaContent">
                     <div class="spec-slots">
@@ -789,7 +806,7 @@
 
         <!-- Hand -->
         <div id="handArea">
-            <h2>🎴 Jouw Kaarten</h2>
+            <h2>🎴 Jouw Kaarten (Sleep naar speelvlak!)</h2>
             <div id="hand"></div>
         </div>
     </div>
@@ -825,7 +842,7 @@
         let gameState = null;
         let myPlayerId = null;
         let currentRoomId = null;
-        let selectedCard = null;
+        let draggedCard = null;
 
         // WIN COUNTER - LocalStorage
         function getWinCount(playerName) {
@@ -910,7 +927,6 @@
 
         function closeBigFiveModal() {
             document.getElementById('bigFiveModal').style.display = 'none';
-            // RE-RENDER om game te unfreezen
             if (gameState) {
                 renderGame();
             }
@@ -943,6 +959,7 @@
             
             renderGame();
             updateWinCounter();
+            setupDragAndDrop();
             
             if (specialEffect && !bigFiveData) {
                 showSpecialEffect(specialEffect);
@@ -991,8 +1008,8 @@
 
             // Play areas
             gameState.playAreas.forEach((area, areaIdx) => {
-                const areaBox = document.querySelector(`[onclick="selectArea(${areaIdx})"]`);
-                areaBox.classList.toggle('blocked', area.blocked);
+                const areaBox = document.querySelector(`[data-area-id="${areaIdx}"]`);
+                areaBox.classList.toggle('blocked', area.blocked && area.blockedForPlayer === myPlayerId);
 
                 const stackedContainer = document.getElementById(`area${areaIdx}stacked`);
                 stackedContainer.innerHTML = '';
@@ -1045,42 +1062,103 @@
                 if (!card.hidden) {
                     const cardEl = document.createElement('div');
                     cardEl.className = 'card';
-                    if (selectedCard && selectedCard.id === card.id) {
-                        cardEl.classList.add('selected');
-                    }
+                    cardEl.draggable = true;
+                    cardEl.dataset.cardId = card.id;
                     cardEl.innerHTML = `<img src="/images/cards/${card.imageNum}.png" alt="${card.type}">`;
-                    cardEl.onclick = () => selectCard(card);
                     handEl.appendChild(cardEl);
                 }
             });
         }
 
-        function selectCard(card) {
-            if (gameState.currentPlayer !== myPlayerId) {
-                showError('Niet jouw beurt!');
-                return;
-            }
-            selectedCard = card;
-            renderGame();
+        // DRAG & DROP FUNCTIONALITY
+        function setupDragAndDrop() {
+            // Setup draggable cards
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('dragstart', handleDragStart);
+                card.addEventListener('dragend', handleDragEnd);
+            });
+
+            // Setup drop zones (speelvlakken)
+            document.querySelectorAll('.playAreaBox').forEach(area => {
+                area.addEventListener('dragover', handleDragOver);
+                area.addEventListener('dragleave', handleDragLeave);
+                area.addEventListener('drop', handleDrop);
+            });
         }
 
-        function selectArea(areaId) {
-            if (!selectedCard) {
-                showError('Selecteer eerst een kaart!');
-                return;
-            }
+        function handleDragStart(e) {
             if (gameState.currentPlayer !== myPlayerId) {
+                e.preventDefault();
                 showError('Niet jouw beurt!');
                 return;
             }
 
+            draggedCard = {
+                id: e.target.dataset.cardId,
+                element: e.target
+            };
+            
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+            
+            // Remove all drag-over classes
+            document.querySelectorAll('.playAreaBox').forEach(area => {
+                area.classList.remove('drag-over');
+            });
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            
+            e.dataTransfer.dropEffect = 'move';
+            
+            const area = e.currentTarget;
+            if (!area.classList.contains('blocked')) {
+                area.classList.add('drag-over');
+            }
+            
+            return false;
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            
+            e.preventDefault();
+            
+            const area = e.currentTarget;
+            area.classList.remove('drag-over');
+            
+            if (area.classList.contains('blocked')) {
+                showError('Dit speelvlak is geblokkeerd!');
+                return false;
+            }
+
+            if (!draggedCard) return false;
+
+            const areaId = parseInt(area.dataset.areaId);
+            
+            // Send to server
             socket.emit('playCard', {
                 roomId: currentRoomId,
-                cardId: selectedCard.id,
+                cardId: draggedCard.id,
                 targetAreaId: areaId
             });
 
-            selectedCard = null;
+            draggedCard = null;
+            return false;
         }
 
         function showWinner() {
@@ -1095,6 +1173,11 @@
             
             document.getElementById('winnerModal').style.display = 'flex';
         }
+
+        // Initialize drag and drop on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setupDragAndDrop();
+        });
     </script>
 </body>
 </html>
